@@ -23,8 +23,7 @@ public class ButtonTile : MonoBehaviour
     public void Unlock()
     {
         //Button pressed to unlock.
-        Debug.Log(("Unlocking new tile!"));
         tileGeneration.GenerateTile(possibleTiles, this.transform);
-        Destroy(this);
+        Destroy(gameObject);
     }
 }

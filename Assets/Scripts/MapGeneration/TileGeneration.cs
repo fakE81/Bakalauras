@@ -16,9 +16,9 @@ public class TileGeneration : MonoBehaviour
         var guids = AssetDatabase.FindAssets("t:prefab",
             new[]
             {
-                // "Assets/Prefabs/Tilemaps/Left-Left", "Assets/Prefabs/Tilemaps/Left-Up",
-                // "Assets/Prefabs/Tilemaps/Right-Right", "Assets/Prefabs/Tilemaps/Right-Up",
-                "Assets/Prefabs/Tilemaps/Up-Up"
+                "Assets/Prefabs/Tilemaps/Left-Left", "Assets/Prefabs/Tilemaps/Left-Up",
+                "Assets/Prefabs/Tilemaps/Right-Right", "Assets/Prefabs/Tilemaps/Right-Up",
+                "Assets/Prefabs/Tilemaps/Up-Up", "Assets/Prefabs/Tilemaps/Up-Right", "Assets/Prefabs/Tilemaps/Up-Left"
             });
         foreach (var guid in guids)
         {
@@ -49,20 +49,59 @@ public class TileGeneration : MonoBehaviour
     private void GenerateButtonTile(GameObject generatedTile)
     {
         Vector3 buttonTilePosition = DetermineButtonTilePosition(generatedTile);
+        Debug.Log("Button tile position:"+buttonTilePosition);
         GameObject tileObject = Instantiate(buttonTile,
             buttonTilePosition,
             Quaternion.identity);
-        //TODO: DeterminePossibleTilesTypes
-        tileObject.GetComponent<ButtonTile>().possibleTiles = new[] { TileType.UpUp };
+        TileType[] determinedTypes = DeterminePossibleTileTypes(generatedTile.GetComponent<Tile>().Type);
+        if (determinedTypes == null)
+        {
+            Debug.LogError("Can't determine possible Button Types");
+        }
+
+        tileObject.GetComponent<ButtonTile>().possibleTiles = determinedTypes;
     }
 
     private Vector3 DetermineButtonTilePosition(GameObject generatedTile)
     {
-        if (generatedTile.GetComponent<Tile>().Type.Equals(TileType.UpUp))
+        TileType type = generatedTile.GetComponent<Tile>().Type;
+        Vector3 position = generatedTile.transform.position;
+        if (type == TileType.LeftLeft || type == TileType.UpLeft)
         {
-            return new Vector3(generatedTile.transform.position.x, 0f, generatedTile.transform.position.z + 14f);
+            return new Vector3(position.x - 14f, 0f, position.z);
         }
 
+        if (type == TileType.LeftUp || type == TileType.RightUp || type == TileType.UpUp)
+        {
+            return new Vector3(position.x, 0f, position.z + 14f);
+        }
+
+        if (type == TileType.RightRight || type == TileType.UpRight)
+        {
+            return new Vector3(position.x + 14f, 0f, position.z);
+        }
+
+        Debug.Log("This type is not implemented");
         return new Vector3();
+    }
+
+    private TileType[] DeterminePossibleTileTypes(TileType type)
+    {
+        if (type == TileType.LeftLeft || type == TileType.UpLeft)
+        {
+            return new[] { TileType.LeftLeft, TileType.LeftUp };
+        }
+
+        if (type == TileType.LeftUp || type == TileType.RightUp || type == TileType.UpUp)
+        {
+            return new[] { TileType.UpLeft, TileType.UpRight, TileType.UpUp };
+        }
+
+        if (type == TileType.RightRight || type == TileType.UpRight)
+        {
+            return new[] { TileType.RightRight, TileType.RightUp };
+        }
+
+        return null;
     }
 }

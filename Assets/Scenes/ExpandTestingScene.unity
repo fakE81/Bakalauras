@@ -5155,7 +5155,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 903067500143390059, guid: 2a37c8c586932884890230abfcec4cf9, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 903067500143390059, guid: 2a37c8c586932884890230abfcec4cf9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6129,7 +6129,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1815481722}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 276958210}
@@ -7339,15 +7339,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2775833277809017471, guid: 86cdef82ac7e23f48a1a1871b13d20ea, type: 3}
       propertyPath: possibleTiles.Array.data[0]
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2775833277809017471, guid: 86cdef82ac7e23f48a1a1871b13d20ea, type: 3}
       propertyPath: possibleTiles.Array.data[1]
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2775833277809017471, guid: 86cdef82ac7e23f48a1a1871b13d20ea, type: 3}
       propertyPath: possibleTiles.Array.data[2]
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7103848117252048834, guid: 86cdef82ac7e23f48a1a1871b13d20ea, type: 3}
       propertyPath: m_Name
@@ -7367,7 +7367,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7103848117252048857, guid: 86cdef82ac7e23f48a1a1871b13d20ea, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7103848117252048857, guid: 86cdef82ac7e23f48a1a1871b13d20ea, type: 3}
       propertyPath: m_LocalRotation.w
