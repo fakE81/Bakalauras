@@ -17,7 +17,10 @@ public class Waypoints : MonoBehaviour
     public static void addWaypoint(Transform waypoint)
     {
         waypoints.Add(waypoint);
-        // Create reversed list.
+    }
+
+    public static void ReverseWaypoints()
+    {
         reversedWaypoints = new List<Transform>(waypoints);
         reversedWaypoints.Reverse();
     }
@@ -29,7 +32,7 @@ public class Waypoints : MonoBehaviour
 
     public static Transform getStartWaypoint()
     {
-        return reversedWaypoints[0];
+        return waypoints[waypoints.Count-1];
     }
 
     public static int getSize()

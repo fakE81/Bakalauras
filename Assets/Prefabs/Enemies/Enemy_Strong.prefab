@@ -427,4 +427,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blueprint: {fileID: -4831841894930095138, guid: f4e226d8be2dc4f43804f0f94365f8ae, type: 3}
   healthBar: {fileID: 575804808}
+  damagePopUp: {fileID: 5314864771031095944, guid: 3f262b3e66c02674cb36ee28cede79cd, type: 3}
   dieEffect: {fileID: 3616145678676264646, guid: 9e6f1e72fc8e24a49a24acbf949745a7, type: 3}

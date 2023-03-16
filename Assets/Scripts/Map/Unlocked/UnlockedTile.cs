@@ -19,7 +19,7 @@ public class UnlockedTile : MonoBehaviour
         }
 
         // Waypoints added so change gamestate.
-        gameManager.changeGamestate(Gamestate.StartSpawningWave);
+        // gameManager.changeGamestate(Gamestate.StartSpawningWave);
     }
 
     // Update is called once per frame

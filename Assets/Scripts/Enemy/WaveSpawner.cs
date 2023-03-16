@@ -14,6 +14,8 @@ public class WaveSpawner : MonoBehaviour
 
     private int waveIndex = 1;
     private float multiplier = 1;
+    private bool finishedSpawning;
+    private bool startedSpawning;
     private GameManager gameManager;
     [Header("DEBUG")] public bool turnOffEnemies = true;
 
@@ -22,6 +24,8 @@ public class WaveSpawner : MonoBehaviour
         gameManager = GameManager.instance;
         currentWave = wave[0];
         enemiesCount = 0;
+        finishedSpawning = false;
+        startedSpawning = false;
     }
 
     void Update()
@@ -30,9 +34,11 @@ public class WaveSpawner : MonoBehaviour
             return;
 
         // Laukiam ir tada paleidziam.
-        if (Gamestate.StartSpawningWave == gameManager.getGamestate())
+        if (Gamestate.StartedWave == gameManager.getGamestate() && !startedSpawning)
         {
             // Get wave:
+            startedSpawning = true;
+            finishedSpawning = false;
             ChangeBaseWave();
             spawnPoint = Waypoints.getStartWaypoint();
             PlayerStats.Wave = waveIndex;
@@ -40,32 +46,36 @@ public class WaveSpawner : MonoBehaviour
             for (int i = 0; i < currentWave.enemies.Length; i++)
             {
                 StartCoroutine(SpawnWave(currentWave.enemies[i], currentWave.enemies[i].rateMin,
-                    currentWave.enemies[i].rateMax));
+                    currentWave.enemies[i].rateMax, currentWave.times, currentWave.timeRange));
             }
-
-            gameManager.changeGamestate(Gamestate.StopSpawningWave);
         }
-        else if (gameManager.getGamestate() == Gamestate.EnemiesSpawned && enemiesCount == 0)
+        else if (finishedSpawning && enemiesCount == 0)
         {
+            startedSpawning = false;
+            finishedSpawning = false;
             gameManager.changeGamestate(Gamestate.ClearedWave);
-            gameManager.selectPowerUI();
+            //gameManager.selectPowerUI();
             multiplier += 0.3f;
             waveIndex++;
         }
     }
 
-    IEnumerator SpawnWave(EnemiesInformation enemy, float rateMin, float rateMax)
+    IEnumerator SpawnWave(EnemiesInformation enemy, float rateMin, float rateMax, int times, float timeRange)
     {
         //waveIndex++;
-        int enemiesToSpawn = Mathf.RoundToInt(enemy.count * multiplier);
-        enemiesCount += enemiesToSpawn;
-        for (int i = 0; i < enemiesToSpawn; i++)
+        for (int i = 0; i < times; i++)
         {
-            SpawnEnemy(enemy.enemy);
-            yield return new WaitForSeconds(Random.Range(rateMin, rateMax));
+            int enemiesToSpawn = Mathf.RoundToInt(enemy.count * multiplier);
+            enemiesCount += enemiesToSpawn;
+            for (int j = 0; j < enemiesToSpawn; j++)
+            {
+                SpawnEnemy(enemy.enemy);
+                yield return new WaitForSeconds(Random.Range(rateMin, rateMax));
+            }
+            yield return new WaitForSeconds(timeRange);
         }
 
-        gameManager.changeGamestate(Gamestate.EnemiesSpawned);
+        finishedSpawning = true;
     }
 
     void SpawnEnemy(GameObject enemy)

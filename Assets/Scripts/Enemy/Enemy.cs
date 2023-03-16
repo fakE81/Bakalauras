@@ -1,3 +1,5 @@
+using System;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,12 +15,15 @@ public class Enemy : MonoBehaviour
 
     // Health bar padaryti kad nesisuktu.
     public Image healthBar;
+    public GameObject damagePopUp;
 
     public GameObject dieEffect;
+    private bool isDead;
 
     // Start is called before the first frame update
     void Start()
     {
+        isDead = false;
         target = Waypoints.getWaypoints()[0];
         // Issisaugom gyvybes kiekvienam objektui.
         startHealh = (int)blueprint.health;
@@ -41,10 +46,11 @@ public class Enemy : MonoBehaviour
 
     void GetNextWaypoint()
     {
-        Debug.Log(wavePointIndex + " >=" + Waypoints.getSize());
-        if (wavePointIndex >= Waypoints.getWaypoints().Length - 1)
+        // Debug.Log(wavePointIndex + " >=" + Waypoints.getSize());
+        if (wavePointIndex >= Waypoints.getWaypoints().Length - 1 && !isDead)
         {
             // Jei pasiekiam mazinam gyvybes.
+            isDead = true;
             PlayerStats.CastleHealth--;
             Die();
             return; // Nes uztrunka istrinti
@@ -58,12 +64,15 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(float damage)
     {
         health -= damage;
-
+        GameObject popUp = Instantiate(damagePopUp, transform.position, Quaternion.identity);
+        popUp.transform.GetChild(0).GetComponent<TextMesh>().text = damage.ToString();
+        Destroy(popUp, 1f);
         // Healthbarui.
         healthBar.fillAmount = health / startHealh;
 
-        if (health <= 0)
+        if (health <= 0 && !isDead)
         {
+            isDead = true;
             Die();
         }
     }

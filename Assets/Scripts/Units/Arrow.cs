@@ -1,14 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
-
     private Transform target;
     public GameObject impactEffect;
     public float speed = 50f;
     public float damage = 10f;
+
     public void Seek(Transform _target)
     {
         target = _target;
@@ -17,7 +15,7 @@ public class Arrow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(target == null)
+        if (target == null)
         {
             Destroy(gameObject);
             return;
@@ -27,13 +25,14 @@ public class Arrow : MonoBehaviour
         float distanceThisFrame = speed * Time.deltaTime;
 
         // distance length 
-        if(dir.magnitude <= distanceThisFrame)
+        if (dir.magnitude <= distanceThisFrame)
         {
             HitTarget();
             return;
         }
 
-        transform.Translate(dir.normalized*distanceThisFrame,Space.World);
+        transform.Translate(dir.normalized * distanceThisFrame, Space.World);
+        transform.rotation = Quaternion.LookRotation(dir.normalized);
     }
 
     void HitTarget()
@@ -41,11 +40,14 @@ public class Arrow : MonoBehaviour
         // Hit effects.
         GameObject effectInstance = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);
         Destroy(effectInstance, 2f);
-        target.gameObject.GetComponent<Enemy>().TakeDamage(damage);
+        // Calculate damage:
+        float generatedDamage = Random.Range(Mathf.RoundToInt(damage/100*75), Mathf.RoundToInt(damage/100*125));
+        target.gameObject.GetComponent<Enemy>().TakeDamage(generatedDamage);
         Destroy(gameObject);
     }
 
-    public void setDamage(float damage){
+    public void setDamage(float damage)
+    {
         this.damage = damage;
     }
 }

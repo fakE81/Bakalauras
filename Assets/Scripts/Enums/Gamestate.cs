@@ -1,9 +1,6 @@
 public enum Gamestate
 {
     Start,
+    StartedWave,
     ClearedWave,
-    StartSpawningWave,
-    StopSpawningWave,
-    Paused,
-    EnemiesSpawned
 }
