@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39ea24e7e98382c4693357568b031b65, type: 3}
+  m_Name: Wave_Easy_0
+  m_EditorClassIdentifier: 
+  enemies:
+  - enemy: {fileID: 5302485575906512777, guid: c3f534d388478254baeb8ad40dc2f97a, type: 3}
+    count: 10
+    rateMin: 0.2
+    rateMax: 1
+  startLevel: 1
+  times: 2
+  timeRange: 5
