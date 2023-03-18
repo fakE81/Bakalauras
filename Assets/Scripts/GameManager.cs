@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
     private Gamestate gamestate;
 
     public static GameManager instance;
-    private PowerCardsHandler powerCardsHandler;
 
     public GameObject informationUI;
 
@@ -20,7 +19,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        powerCardsHandler = gameObject.GetComponent<PowerCardsHandler>();
         gamestate = Gamestate.Start;
         isPaused = false;
         GameIsOver = false;
@@ -70,19 +68,6 @@ public class GameManager : MonoBehaviour
         gameOverUI.SetActive(true);
         // Sustabdom zaidima.
         Time.timeScale = 0;
-    }
-
-    public void SelectedPower(string msg)
-    {
-        Debug.Log(msg);
-        // Send that message to powerup class:
-        powerCardsHandler.handle(msg);
-        powerUpUI.SetActive(false);
-    }
-
-    public void selectPowerUI()
-    {
-        powerUpUI.SetActive(true);
     }
 
     public void changeGamestate(Gamestate gamestate)
