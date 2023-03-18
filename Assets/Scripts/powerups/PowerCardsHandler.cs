@@ -6,7 +6,7 @@ public class PowerCardsHandler : MonoBehaviour
     public int range = 1;
     public int damage = 10;
     public int speed;
-    private Archer[] archers;
+    private Balista[] archers;
 
     public void handle(string powerCardName)
     {
@@ -16,7 +16,7 @@ public class PowerCardsHandler : MonoBehaviour
                 PlayerStats.Money += money;
                 break;
             case "Range":
-                archers = FindObjectsOfType<Archer>();
+                archers = FindObjectsOfType<Balista>();
                 foreach (var item in archers)
                 {
                     item.range += range;
@@ -24,7 +24,7 @@ public class PowerCardsHandler : MonoBehaviour
 
                 break;
             case "Damage":
-                archers = FindObjectsOfType<Archer>();
+                archers = FindObjectsOfType<Balista>();
                 Debug.Log(archers.Length);
                 foreach (var item in archers)
                 {

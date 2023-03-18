@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Archer : MonoBehaviour
+public class Balista : MonoBehaviour
 {
     private Transform target;
     [Header("Attributes")] public float range = 5f;
@@ -8,10 +8,9 @@ public class Archer : MonoBehaviour
     private float fireCountdown = 0f;
     public float damage = 10f;
 
-    [Header("Unity Setup Fields")] public string enemyTag = "Enemy";
-    public float turnSpeed = 3f;
+    [Header("Unity Setup Fields")] public float turnSpeed = 3f;
 
-
+    public AudioSource audioSource;
     public GameObject arrowPrefab;
     public Transform firePoint;
 
@@ -50,7 +49,14 @@ public class Archer : MonoBehaviour
     void Update()
     {
         if (target == null)
+        {
+            if (fireCountdown > 0)
+            {
+                fireCountdown -= Time.deltaTime;
+            }
+
             return;
+        }
 
         // Seek enemies, Target lock on;
         Vector3 dir = target.position - transform.position;
@@ -73,6 +79,7 @@ public class Archer : MonoBehaviour
     void Shoot()
     {
         GameObject arrowGO = (GameObject)Instantiate(arrowPrefab, firePoint.position, firePoint.rotation);
+        audioSource.Play();
         Arrow arrow = arrowGO.GetComponent<Arrow>();
         arrow.setDamage(damage);
         if (arrow != null)

@@ -18,7 +18,7 @@ public class Enemy : MonoBehaviour
     public GameObject damagePopUp;
 
     public GameObject dieEffect;
-    private bool isDead;
+    public bool isDead;
 
     // Start is called before the first frame update
     void Start()
