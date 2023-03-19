@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BuildManager : MonoBehaviour
 {
@@ -9,7 +10,8 @@ public class BuildManager : MonoBehaviour
     private GameObject currentSelectedPanel;
     public int currentSelectedUnit;
     public bool buildingMode = false;
-
+    [SerializeField] private Text balistaPriceText;
+    
 
     public bool HasMoney
     {
@@ -18,6 +20,7 @@ public class BuildManager : MonoBehaviour
 
     void Awake()
     {
+        unitBlueprints = PlayerTowersManager.instance.UnitBlueprints;
         selectedBlueprint = null;
         currentSelectedPanel = null;
         currentSelectedUnit = -1;
@@ -104,5 +107,10 @@ public class BuildManager : MonoBehaviour
     private void DeselectUnit()
     {
         selectedBlueprint = null;
+    }
+
+    public Text getBalistaText()
+    {
+        return balistaPriceText;
     }
 }

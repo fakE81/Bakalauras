@@ -43,10 +43,10 @@ public class Arrow : MonoBehaviour
         // Calculate damage:
         float generatedDamage = Random.Range(Mathf.RoundToInt(damage/100*75), Mathf.RoundToInt(damage/100*125));
         target.gameObject.GetComponent<Enemy>().TakeDamage(generatedDamage);
-        // Check if target is dead:
+        // Check if target is dead and add coins to playerStats:
         if (target.gameObject.GetComponent<Enemy>().isDead)
         {
-            PlayerStatisticsManager.instance.AddExeperienceToBalista(target.gameObject.GetComponent<Enemy>().blueprint.givesExperience);
+            PlayerStats.EARNED_COINS += target.gameObject.GetComponent<Enemy>().blueprint.coins;
         }
         Destroy(gameObject);
     }

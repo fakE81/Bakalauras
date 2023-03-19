@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Node : MonoBehaviour
 {
@@ -39,10 +40,10 @@ public class Node : MonoBehaviour
         }
 
         //Instantiate archer.
-        buildUnit(buildmanager.getCurrentBlueprint(), buildmanager.currentSelectedUnit);
+        buildUnit(buildmanager.getCurrentBlueprint(), buildmanager.currentSelectedUnit, buildmanager.getBalistaText());
     }
 
-    void buildUnit(UnitBlueprint blueprint, int index)
+    void buildUnit(UnitBlueprint blueprint, int index, Text balistaPriceText)
     {
         if (blueprint == null)
             return;
@@ -55,6 +56,8 @@ public class Node : MonoBehaviour
         unit = Instantiate(blueprint.prefab,
             new Vector3(transform.position.x, transform.position.y + offset, transform.position.z),
             Quaternion.identity);
+        blueprint.cost += blueprint.costIncrease;
+        balistaPriceText.text = blueprint.cost + "$";
     }
 
     private bool CanBuild(int index)

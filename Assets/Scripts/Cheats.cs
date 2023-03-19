@@ -28,5 +28,9 @@ public class Cheats : MonoBehaviour
         {
             PlayerStats.CastleHealth += 10;
         }
+        if (Input.GetKeyDown(KeyCode.F4))
+        {
+            PlayerStatisticsManager.instance.addCoins(100);
+        }
     }
 }

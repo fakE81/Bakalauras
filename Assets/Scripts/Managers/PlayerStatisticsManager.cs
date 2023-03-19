@@ -5,9 +5,8 @@ using UnityEngine;
 public class PlayerStatisticsManager : MonoBehaviour
 {
     public static PlayerStatisticsManager instance;
-
-    [SerializeField]
-    private Experience balistaExperience;
+    private int coins = 0;
+    private int banditsHighscore = 0;
     void Start()
     {
         if (instance != null)
@@ -16,32 +15,19 @@ public class PlayerStatisticsManager : MonoBehaviour
         }
 
         instance = this;
-        balistaExperience = new Experience();
         DontDestroyOnLoad(this.gameObject);
-        // Load from the file balistaExperience:
     }
 
-    public void AddExeperienceToBalista(int experience)
+    public void addCoins(int coins)
     {
-        Debug.Log("Balista got exp:" + experience);
-        balistaExperience.experience += experience;
+        this.coins += coins;
     }
 
-    public void HandleLevelUps()
-    {
-        while (balistaExperience.experience >= balistaExperience.neededExperience)
-        {
-            balistaExperience.experience -= balistaExperience.neededExperience;
-            balistaExperience.neededExperience *= 2;
-            balistaExperience.level++;
-            balistaExperience.experiencePoints++;
-        }
-        Debug.Log("Balista level:" + balistaExperience.level);
-    }
+    public int Coins => coins;
 
-    // Do Saving:
-    public void SaveToFileExperience()
+    public int BanditsHighscore
     {
-        
+        get => banditsHighscore;
+        set => banditsHighscore = value;
     }
 }

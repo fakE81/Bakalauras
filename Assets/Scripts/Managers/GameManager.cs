@@ -63,10 +63,13 @@ public class GameManager : MonoBehaviour
 
     private void End()
     {
-        PlayerStatisticsManager.instance.HandleLevelUps();
+        PlayerStatisticsManager.instance.addCoins(PlayerStats.EARNED_COINS);
+        if (PlayerStats.Wave > PlayerStatisticsManager.instance.BanditsHighscore)
+        {
+            PlayerStatisticsManager.instance.BanditsHighscore = PlayerStats.Wave;
+        }
         GameIsOver = true;
         gameOverUI.SetActive(true);
-        // Sustabdom zaidima.
         Time.timeScale = 0;
     }
 

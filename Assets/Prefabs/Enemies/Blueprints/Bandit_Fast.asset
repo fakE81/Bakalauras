@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d79802af367b65e43b78215564368f74, type: 3}
   m_Name: Bandit_Fast
   m_EditorClassIdentifier: 
-  speed: 11
-  health: 70
-  givesMoney: 20
-  givesExperience: 10
+  speed: 8.5
+  health: 80
+  givesMoney: 5
+  givesExperience: 1

@@ -7,18 +7,18 @@ public class PlayerStats : MonoBehaviour
 
     public static int Wave = 0;
 
-    [SerializeField] public static int CastleHealth;
+    public static int CastleHealth;
     public int startCastleHealth = 10;
 
     private GameManager gm;
+    public static int EARNED_COINS = 0;
 
-    // Start is called before the first frame update
     void Start()
     {
-        // Pradiniai stats.
         CastleHealth = startCastleHealth;
         Money = startMoney;
         Wave = 0;
+        EARNED_COINS = 0;
         gm = GameManager.instance;
     }
 }

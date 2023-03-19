@@ -10,17 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39ea24e7e98382c4693357568b031b65, type: 3}
-  m_Name: Wave_5
+  m_Name: Wave_9
   m_EditorClassIdentifier: 
   enemies:
-  - enemy: {fileID: 5302485575906512777, guid: c3f534d388478254baeb8ad40dc2f97a, type: 3}
-    count: 20
-    rateMin: 0.1
-    rateMax: 0.5
   - enemy: {fileID: 5302485575906512777, guid: 67a4ab6c1e8c1a649962ddf9f32c89eb, type: 3}
-    count: 10
+    count: 30
     rateMin: 0.5
-    rateMax: 1.5
-  startLevel: 5
+    rateMax: 1
+  - enemy: {fileID: 5302485575906512777, guid: 1e3ed77c3f7e83b4888e752379f8129f, type: 3}
+    count: 10
+    rateMin: 1
+    rateMax: 3
+  - enemy: {fileID: 5302485575906512777, guid: c3f534d388478254baeb8ad40dc2f97a, type: 3}
+    count: 25
+    rateMin: 0.5
+    rateMax: 1
+  startLevel: 9
   times: 1
   timeRange: 0

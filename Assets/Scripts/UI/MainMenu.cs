@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
@@ -7,6 +9,16 @@ public class MainMenu : MonoBehaviour
     public GameObject mainMenu;
     public GameObject upgradesMenu;
     public GameObject mapSelectMenu;
+    public Text coinsText;
+    public Text banditsHighScore;
+    private PlayerStatisticsManager playerStatisticsManager;
+    private PlayerTowersManager playerTowersManager;
+
+    private void Start()
+    {
+        playerStatisticsManager = PlayerStatisticsManager.instance;
+        playerTowersManager = PlayerTowersManager.instance;
+    }
 
     public void StartBanditMap()
     {
@@ -15,12 +27,14 @@ public class MainMenu : MonoBehaviour
 
     public void OpenUpgradesMenu()
     {
+        coinsText.text = playerStatisticsManager.Coins + "c";
         mainMenu.SetActive(false);
         upgradesMenu.SetActive(true);
     }
 
     public void OpenMapSelectMenu()
     {
+        banditsHighScore.text = "Highscore: " + playerStatisticsManager.BanditsHighscore; 
         mainMenu.SetActive(false);
         mapSelectMenu.SetActive(true);
     }
@@ -35,5 +49,11 @@ public class MainMenu : MonoBehaviour
     public void GameExit()
     {
         Application.Quit();
+    }
+
+    public void LevelUp(int index)
+    {
+        playerTowersManager.LevelUp(index);
+        coinsText.text = playerStatisticsManager.Coins + "c";
     }
 }

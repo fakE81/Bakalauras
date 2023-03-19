@@ -47,10 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f653797a5befcfc47842bcc30e448f8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 10
+  range: 7
   fireRate: 0.5
   damage: 100
-  enemyTag: Enemy
   turnSpeed: 7
   audioSource: {fileID: 2617228163886984458}
   arrowPrefab: {fileID: 7700510372964012065, guid: df51e4b8d970ee9428e04d89894d3e30, type: 3}

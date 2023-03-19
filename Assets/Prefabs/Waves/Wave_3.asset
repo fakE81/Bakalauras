@@ -14,13 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemies:
   - enemy: {fileID: 5302485575906512777, guid: c3f534d388478254baeb8ad40dc2f97a, type: 3}
-    count: 10
-    rateMin: 0.3
-    rateMax: 0.6
-  - enemy: {fileID: 5302485575906512777, guid: 67a4ab6c1e8c1a649962ddf9f32c89eb, type: 3}
-    count: 5
-    rateMin: 0.6
-    rateMax: 1.1
+    count: 15
+    rateMin: 0.1
+    rateMax: 0.2
   startLevel: 3
   times: 1
   timeRange: 0

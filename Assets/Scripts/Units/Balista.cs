@@ -14,6 +14,9 @@ public class Balista : MonoBehaviour
     public GameObject arrowPrefab;
     public Transform firePoint;
 
+    [Space] private int level = 1;
+    private static int upgradeCost = 2;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -97,5 +100,18 @@ public class Balista : MonoBehaviour
     private void OnMouseDown()
     {
         GameManager.instance.handleInformationUI(gameObject.transform, damage, range, fireRate, turnSpeed);
+    }
+
+    public void LevelUp()
+    {
+        PlayerStatisticsManager manager = PlayerStatisticsManager.instance;
+        Debug.Log("LevelUp" + manager.Coins + " " + upgradeCost);
+        if (manager.Coins >= upgradeCost)
+        {
+            Debug.Log("LevelUp1");
+            level++;
+            manager.addCoins(-upgradeCost);
+            damage += 5f;
+        }
     }
 }
