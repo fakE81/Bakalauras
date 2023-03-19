@@ -46,7 +46,7 @@ public class Arrow : MonoBehaviour
         // Check if target is dead:
         if (target.gameObject.GetComponent<Enemy>().isDead)
         {
-            ExperienceManager.instance.AddExeperienceToBalista(target.gameObject.GetComponent<Enemy>().blueprint.givesExperience);
+            PlayerStatisticsManager.instance.AddExeperienceToBalista(target.gameObject.GetComponent<Enemy>().blueprint.givesExperience);
         }
         Destroy(gameObject);
     }

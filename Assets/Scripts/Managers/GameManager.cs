@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
 
     private void End()
     {
-        ExperienceManager.instance.HandleLevelUps();
+        PlayerStatisticsManager.instance.HandleLevelUps();
         GameIsOver = true;
         gameOverUI.SetActive(true);
         // Sustabdom zaidima.
