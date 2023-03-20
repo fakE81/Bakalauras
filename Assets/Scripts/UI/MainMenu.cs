@@ -13,6 +13,7 @@ public class MainMenu : MonoBehaviour
     public Text banditsHighScore;
     private PlayerStatisticsManager playerStatisticsManager;
     private PlayerTowersManager playerTowersManager;
+    public TowersUpgradeUI towersUpgradeUI;
 
     private void Start()
     {
@@ -27,6 +28,7 @@ public class MainMenu : MonoBehaviour
 
     public void OpenUpgradesMenu()
     {
+        towersUpgradeUI.UpdateBalistaText(playerTowersManager.UnitBlueprints[0].prefab.transform.GetChild(0).GetComponent<Balista>().TowerInformation);
         coinsText.text = playerStatisticsManager.Coins + "c";
         mainMenu.SetActive(false);
         upgradesMenu.SetActive(true);
@@ -39,20 +41,31 @@ public class MainMenu : MonoBehaviour
         mapSelectMenu.SetActive(true);
     }
 
-    public void OpenMainMenu()
+    public void OpenMainMenuFromUpgrades()
     {
         upgradesMenu.SetActive(false);
+        mainMenu.SetActive(true);
+        playerTowersManager.SaveData();
+        playerStatisticsManager.SaveData();
+    }
+    
+    public void OpenMainMenuFromMapSelect()
+    {
         mapSelectMenu.SetActive(false);
         mainMenu.SetActive(true);
     }
 
     public void GameExit()
     {
+        // Save some data:
+        playerTowersManager.SaveData();
+        playerStatisticsManager.SaveData();
         Application.Quit();
     }
 
     public void LevelUp(int index)
     {
+        towersUpgradeUI.UpdateBalistaText(playerTowersManager.UnitBlueprints[0].prefab.transform.GetChild(0).GetComponent<Balista>().TowerInformation);
         playerTowersManager.LevelUp(index);
         coinsText.text = playerStatisticsManager.Coins + "c";
     }

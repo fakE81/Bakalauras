@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
         return gamestate;
     }
 
-    public void handleInformationUI(Transform pos, float damage, float range, float fireRate, float turnSpeed)
+    public void handleInformationUI(Transform pos, TowerInformation towerInformation)
     {
         if (informationUI.transform.position.Equals(new Vector3(pos.position.x, 3.4f, pos.position.z)) &&
             informationUI.activeSelf)
@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
         else
         {
             InformationUI script = informationUI.GetComponent<InformationUI>();
-            script.updateInformation(pos, damage, range, fireRate, turnSpeed);
+            script.updateInformation(pos, towerInformation);
             informationUI.SetActive(true);
         }
     }

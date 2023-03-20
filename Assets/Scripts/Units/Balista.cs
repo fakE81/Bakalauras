@@ -3,19 +3,11 @@ using UnityEngine;
 public class Balista : MonoBehaviour
 {
     private Transform target;
-    [Header("Attributes")] public float range = 5f;
-    public float fireRate = 1f;
     private float fireCountdown = 0f;
-    public float damage = 10f;
-
-    [Header("Unity Setup Fields")] public float turnSpeed = 3f;
-
-    public AudioSource audioSource;
+    [SerializeField]private TowerInformation towerInformation;
+    [Space] public AudioSource audioSource;
     public GameObject arrowPrefab;
     public Transform firePoint;
-
-    [Space] private int level = 1;
-    private static int upgradeCost = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -38,7 +30,7 @@ public class Balista : MonoBehaviour
             }
         }
 
-        if (nearestEnemy != null && shortestDistance <= range)
+        if (nearestEnemy != null && shortestDistance <= towerInformation.range)
         {
             target = nearestEnemy.transform;
         }
@@ -64,14 +56,14 @@ public class Balista : MonoBehaviour
         // Seek enemies, Target lock on;
         Vector3 dir = target.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(dir);
-        Vector3 rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
+        Vector3 rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * towerInformation.turnSpeed).eulerAngles;
         transform.rotation = Quaternion.Euler(rotation.x, rotation.y, rotation.z);
 
 
         if (fireCountdown <= 0f)
         {
             Shoot();
-            fireCountdown = 1f / fireRate;
+            fireCountdown = 1f / towerInformation.fireRate;
         }
 
         // Every second by 1
@@ -84,7 +76,7 @@ public class Balista : MonoBehaviour
         GameObject arrowGO = (GameObject)Instantiate(arrowPrefab, firePoint.position, firePoint.rotation);
         audioSource.Play();
         Arrow arrow = arrowGO.GetComponent<Arrow>();
-        arrow.setDamage(damage);
+        arrow.setDamage(towerInformation.damage);
         if (arrow != null)
         {
             arrow.Seek(target);
@@ -94,24 +86,31 @@ public class Balista : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, range);
+        Gizmos.DrawWireSphere(transform.position, towerInformation.range);
     }
 
     private void OnMouseDown()
     {
-        GameManager.instance.handleInformationUI(gameObject.transform, damage, range, fireRate, turnSpeed);
+        GameManager.instance.handleInformationUI(gameObject.transform, towerInformation);
     }
 
-    public void LevelUp()
+    public bool LevelUp()
     {
         PlayerStatisticsManager manager = PlayerStatisticsManager.instance;
-        Debug.Log("LevelUp" + manager.Coins + " " + upgradeCost);
-        if (manager.Coins >= upgradeCost)
+        if (manager.Coins >= towerInformation.upgradeCost)
         {
-            Debug.Log("LevelUp1");
-            level++;
-            manager.addCoins(-upgradeCost);
-            damage += 5f;
+            towerInformation.level++;
+            manager.addCoins(-towerInformation.upgradeCost);
+            towerInformation.damage += 5f;
+            towerInformation.upgradeCost++;
+            return true;
         }
+        return false;
+    }
+
+    public TowerInformation TowerInformation
+    {
+        get => towerInformation;
+        set => towerInformation = value;
     }
 }
