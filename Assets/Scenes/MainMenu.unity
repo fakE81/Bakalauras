@@ -1086,6 +1086,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitBlueprints:
   - {fileID: 3690380079859334631, guid: 4574cb15435dfcb409184b5afb3f0c65, type: 3}
+  - {fileID: 8996407847618563232, guid: ccff01a3194682e41a7c69839971fce1, type: 3}
   audioSource: {fileID: 427055833}
 --- !u!82 &427055833
 AudioSource:

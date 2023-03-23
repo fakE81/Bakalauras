@@ -1,5 +1,3 @@
-using System;
-using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +18,12 @@ public class Enemy : MonoBehaviour
     public GameObject dieEffect;
     public bool isDead;
 
+    //DEBUG:
+    private Vector3 currentPosition;
+    private Vector3 previousPosition;
+    private Vector3 velocity;
+    private Vector3 futurePosition;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,11 +32,27 @@ public class Enemy : MonoBehaviour
         // Issisaugom gyvybes kiekvienam objektui.
         startHealh = (int)blueprint.health;
         health = startHealh;
+
+
+        // DEBUG:
+        currentPosition = transform.position;
+        previousPosition = currentPosition;
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Calculate velocity using the change in position over time
+        currentPosition = transform.position;
+        velocity = (currentPosition - previousPosition) / Time.deltaTime;
+        previousPosition = currentPosition;
+
+        // Calculate future position based on current position and velocity
+        float time = 3f; // Time in seconds to predict the future position
+        futurePosition = currentPosition + velocity * time;
+        Debug.DrawLine(currentPosition, futurePosition, Color.green);
+
+
         // Movement:
         Vector3 dir = target.position - transform.position;
         transform.Translate(dir.normalized * blueprint.speed * Time.deltaTime, Space.World);
@@ -63,13 +83,12 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        health -= damage;
         GameObject popUp = Instantiate(damagePopUp, transform.position, Quaternion.identity);
         popUp.transform.GetChild(0).GetComponent<TextMesh>().text = damage.ToString();
         Destroy(popUp, 1f);
-        // Healthbarui.
-        healthBar.fillAmount = health / startHealh;
 
+        health -= damage;
+        healthBar.fillAmount = health / startHealh;
         if (health <= 0 && !isDead)
         {
             isDead = true;
@@ -81,6 +100,7 @@ public class Enemy : MonoBehaviour
     {
         Destroy(gameObject);
         WaveSpawner.enemiesCount--;
+        PlayerStats.EARNED_COINS += blueprint.coins;
         PlayerStats.Money += (int)blueprint.givesMoney;
         DieEffect();
     }
