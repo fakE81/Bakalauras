@@ -69,7 +69,7 @@ public abstract class Tower : MonoBehaviour
         {
             projectile.Seek(target, towerInformation.damage);
         }
-        audioSource.Play();
+        //audioSource.Play();
     }
 
     protected virtual void TowerRotation()

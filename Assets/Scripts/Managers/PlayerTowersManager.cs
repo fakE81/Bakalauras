@@ -38,7 +38,7 @@ public class PlayerTowersManager : MonoBehaviour
 
     public void LevelUp(int index)
     {
-        bool leveledUp = unitBlueprints[index].prefab.transform.GetChild(0).GetComponent<Balista>().LevelUp();
+        bool leveledUp = unitBlueprints[index].prefab.transform.GetChild(0).GetComponent<Tower>().LevelUp();
         if(leveledUp){
             // Play Audio
             if(!audioSource.isPlaying){

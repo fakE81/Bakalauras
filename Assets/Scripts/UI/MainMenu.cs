@@ -28,7 +28,7 @@ public class MainMenu : MonoBehaviour
 
     public void OpenUpgradesMenu()
     {
-        towersUpgradeUI.UpdateBalistaText(playerTowersManager.UnitBlueprints[0].prefab.transform.GetChild(0).GetComponent<Balista>().TowerInformation);
+        towersUpgradeUI.UpdateText(playerTowersManager.UnitBlueprints);
         coinsText.text = playerStatisticsManager.Coins + "c";
         mainMenu.SetActive(false);
         upgradesMenu.SetActive(true);
@@ -65,7 +65,7 @@ public class MainMenu : MonoBehaviour
 
     public void LevelUp(int index)
     {
-        towersUpgradeUI.UpdateBalistaText(playerTowersManager.UnitBlueprints[0].prefab.transform.GetChild(0).GetComponent<Balista>().TowerInformation);
+        towersUpgradeUI.UpdateText(playerTowersManager.UnitBlueprints);
         playerTowersManager.LevelUp(index);
         coinsText.text = playerStatisticsManager.Coins + "c";
     }

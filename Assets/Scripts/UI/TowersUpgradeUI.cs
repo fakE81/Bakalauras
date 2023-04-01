@@ -1,22 +1,25 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class TowersUpgradeUI : MonoBehaviour
 {
-    
-    public Text balistaLevel;
-    public Text balistaDamage;
-    public Text balistaCost;
-    public Text balistaRange;
-    public Text balistaFireRate;
-    
+    [SerializeField] private TowerInformationText[] informationText;
 
-    public void UpdateBalistaText(TowerInformation towerInformation)
+
+    public void UpdateText(UnitBlueprint[] blueprints)
     {
-        balistaCost.text = towerInformation.upgradeCost + "c";
-        balistaLevel.text = "Level:" + towerInformation.level;
-        balistaDamage.text = "Damage:" + towerInformation.damage;
-        balistaRange.text = "Range:" + towerInformation.range;
-        balistaFireRate.text = "Fire Rate:" + towerInformation.fireRate +"/s";
+        for (int i = 0; i < blueprints.Length; i++)
+        {
+            UpdateTowerText(informationText[i],
+                blueprints[i].prefab.transform.GetChild(0).GetComponent<Tower>().TowerInformation);
+        }
+    }
+
+    private void UpdateTowerText(TowerInformationText informationText, TowerInformation towerInformation)
+    {
+        informationText.cost.text = towerInformation.upgradeCost + "c";
+        informationText.level.text = "Level:" + towerInformation.level;
+        informationText.damage.text = "Damage:" + towerInformation.damage;
+        informationText.range.text = "Range:" + towerInformation.range;
+        informationText.fireRate.text = "Fire Rate:" + towerInformation.fireRate + "/s";
     }
 }

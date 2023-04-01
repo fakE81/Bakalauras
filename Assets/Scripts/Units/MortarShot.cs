@@ -1,26 +1,24 @@
 using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class MortarShot : MonoBehaviour, IProjectile
 {
-    public float speed = 10f;
+    public float radius = 10f;
     public float gravity = -9.81f;
     public float max;
-    public Vector3 pos;
-    
-    
+    public LayerMask layerMask;
+    private float damage;
+    [SerializeField] private GameObject impactEffect;
+
+
     private Vector3 targetPosition;
     private float maxHeight;
-
-    // What is target :) 
+    
     public void Seek(Transform target, float damage)
     {
-        throw new NotImplementedException();
-    }
-    
-    private void Start()
-    {
-        Shoot(pos, max);
+        this.damage = damage;
+        Shoot(target.position, max);
     }
 
     public void Shoot(Vector3 targetPosition, float maxHeight)
@@ -42,6 +40,17 @@ public class MortarShot : MonoBehaviour, IProjectile
 
     private void OnCollisionEnter(Collision collision)
     {
+        Collider[] hitColliders = Physics.OverlapSphere(gameObject.transform.position, radius, layerMask);
+        foreach (var collider in hitColliders)
+        {
+            if (collider.CompareTag("Enemy"))
+            {
+                float generatedDamage = Random.Range(Mathf.RoundToInt(damage / 100 * 75), Mathf.RoundToInt(damage / 100 * 125));
+                collider.GetComponent<Enemy>().TakeDamage(generatedDamage);
+            }
+        }
+        GameObject effectInstance = Instantiate(impactEffect, transform.position, impactEffect.transform.rotation);
+        Destroy(effectInstance, 2f);
         Destroy(gameObject);
     }
 }

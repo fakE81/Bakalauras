@@ -40,10 +40,10 @@ public class Node : MonoBehaviour
         }
 
         //Instantiate archer.
-        buildUnit(buildmanager.getCurrentBlueprint(), buildmanager.currentSelectedUnit, buildmanager.getBalistaText());
+        buildUnit(buildmanager.getCurrentBlueprint(), buildmanager.currentSelectedUnit, buildmanager.getBalistaText(buildmanager.currentSelectedUnit));
     }
 
-    void buildUnit(UnitBlueprint blueprint, int index, Text balistaPriceText)
+    void buildUnit(UnitBlueprint blueprint, int index, Text price)
     {
         if (blueprint == null)
             return;
@@ -57,7 +57,7 @@ public class Node : MonoBehaviour
             new Vector3(transform.position.x, transform.position.y + offset, transform.position.z),
             Quaternion.identity);
         blueprint.cost += blueprint.costIncrease;
-        balistaPriceText.text = blueprint.cost + "$";
+        price.text = blueprint.cost + "$";
     }
 
     private bool CanBuild(int index)

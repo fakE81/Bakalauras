@@ -10,7 +10,7 @@ public class BuildManager : MonoBehaviour
     private GameObject currentSelectedPanel;
     public int currentSelectedUnit;
     public bool buildingMode = false;
-    [SerializeField] private Text balistaPriceText;
+    [SerializeField] private Text[] priceText;
     
 
     public bool HasMoney
@@ -109,8 +109,8 @@ public class BuildManager : MonoBehaviour
         selectedBlueprint = null;
     }
 
-    public Text getBalistaText()
+    public Text getBalistaText(int index)
     {
-        return balistaPriceText;
+        return priceText[index];
     }
 }
