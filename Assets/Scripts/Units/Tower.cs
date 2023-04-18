@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 
 public abstract class Tower : MonoBehaviour
 {
+    [SerializeField] private String name;
     [SerializeField] private TowerInformation towerInformation;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private GameObject arrowPrefab;
@@ -69,7 +71,7 @@ public abstract class Tower : MonoBehaviour
         {
             projectile.Seek(target, towerInformation.damage);
         }
-        //audioSource.Play();
+        audioSource.Play();
     }
 
     protected virtual void TowerRotation()
@@ -90,5 +92,11 @@ public abstract class Tower : MonoBehaviour
     private void OnMouseDown()
     {
         GameManager.instance.handleInformationUI(gameObject.transform, towerInformation);
+    }
+
+    public string Name
+    {
+        get => name;
+        set => name = value;
     }
 }

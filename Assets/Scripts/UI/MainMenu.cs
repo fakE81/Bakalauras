@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour
     public GameObject mainMenu;
     public GameObject upgradesMenu;
     public GameObject mapSelectMenu;
+    public GameObject optionMenu;
     public Text coinsText;
     public Text banditsHighScore;
     private PlayerStatisticsManager playerStatisticsManager;
@@ -24,6 +25,18 @@ public class MainMenu : MonoBehaviour
     public void StartBanditMap()
     {
         SceneManager.LoadScene(1);
+    }
+
+    public void OpenOptionMenu()
+    {
+        mainMenu.SetActive(false);
+        optionMenu.SetActive(true);
+    }
+
+    public void ExitOptionMenu()
+    {
+        mainMenu.SetActive(true);
+        optionMenu.SetActive(false);
     }
 
     public void OpenUpgradesMenu()
@@ -65,8 +78,8 @@ public class MainMenu : MonoBehaviour
 
     public void LevelUp(int index)
     {
-        towersUpgradeUI.UpdateText(playerTowersManager.UnitBlueprints);
         playerTowersManager.LevelUp(index);
+        towersUpgradeUI.UpdateText(playerTowersManager.UnitBlueprints);
         coinsText.text = playerStatisticsManager.Coins + "c";
     }
 }

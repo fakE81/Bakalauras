@@ -5,7 +5,6 @@ public class PlayerTowersManager : MonoBehaviour
 {
     [SerializeField] private UnitBlueprint[] unitBlueprints;
     public static PlayerTowersManager instance;
-    public AudioSource audioSource;
 
     void Start()
     {
@@ -40,23 +39,23 @@ public class PlayerTowersManager : MonoBehaviour
     {
         bool leveledUp = unitBlueprints[index].prefab.transform.GetChild(0).GetComponent<Tower>().LevelUp();
         if(leveledUp){
-            // Play Audio
-            if(!audioSource.isPlaying){
-                audioSource.Play();
-            }
+            MusicManager.instance.PlayLevelUp();
         }
     }
 
     public void SaveData()
     {
-        string balista = JsonUtility.ToJson(unitBlueprints[0].prefab.transform.GetChild(0).GetComponent<Balista>()
-            .TowerInformation);
         if (!Directory.Exists(Application.persistentDataPath + "/Towers"))
         {
             Directory.CreateDirectory(Application.persistentDataPath + "/Towers");
         }
+        string balista = JsonUtility.ToJson(unitBlueprints[0].prefab.transform.GetChild(0).GetComponent<Tower>()
+            .TowerInformation);
+        string mortar = JsonUtility.ToJson(unitBlueprints[1].prefab.transform.GetChild(0).GetComponent<Tower>()
+            .TowerInformation);
 
         File.WriteAllText(Application.persistentDataPath + "/Towers/Balista.json", balista);
+        File.WriteAllText(Application.persistentDataPath + "/Towers/Mortar.json", mortar);
     }
 
     private void LoadData()
@@ -66,7 +65,13 @@ public class PlayerTowersManager : MonoBehaviour
             string balista = File.ReadAllText(Application.persistentDataPath + "/Towers/Balista.json");
             TowerInformation towerInformation = JsonUtility.FromJson<TowerInformation>(balista);
             unitBlueprints[0].prefab.transform.GetChild(0).GetComponent<Balista>().TowerInformation = towerInformation;
-            Debug.Log(towerInformation);
+        }
+
+        if (File.Exists(Application.persistentDataPath + "/Towers/Mortar.json"))
+        {
+            string mortar = File.ReadAllText(Application.persistentDataPath + "/Towers/Mortar.json");
+            TowerInformation towerInformation = JsonUtility.FromJson<TowerInformation>(mortar);
+            unitBlueprints[1].prefab.transform.GetChild(0).GetComponent<Mortar>().TowerInformation = towerInformation;  
         }
     }
 }

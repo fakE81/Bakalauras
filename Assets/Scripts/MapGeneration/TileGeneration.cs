@@ -13,17 +13,22 @@ public class TileGeneration : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        var guids = AssetDatabase.FindAssets("t:prefab",
-            new[]
-            {
-                "Assets/Prefabs/Tilemaps/Left-Left", "Assets/Prefabs/Tilemaps/Left-Up",
-                "Assets/Prefabs/Tilemaps/Right-Right", "Assets/Prefabs/Tilemaps/Right-Up",
-                "Assets/Prefabs/Tilemaps/Up-Up", "Assets/Prefabs/Tilemaps/Up-Right", "Assets/Prefabs/Tilemaps/Up-Left"
-            });
-        foreach (var guid in guids)
+        GameObject[] loadedTiles = Resources.LoadAll("Tiles", typeof(GameObject)).Cast<GameObject>().ToArray();
+        // var guids = AssetDatabase.FindAssets("t:prefab",
+        //     new[]
+        //     {
+        //         "Assets/Prefabs/Tilemaps/Left-Left", "Assets/Prefabs/Tilemaps/Left-Up",
+        //         "Assets/Prefabs/Tilemaps/Right-Right", "Assets/Prefabs/Tilemaps/Right-Up",
+        //         "Assets/Prefabs/Tilemaps/Up-Up", "Assets/Prefabs/Tilemaps/Up-Right", "Assets/Prefabs/Tilemaps/Up-Left"
+        //     });
+        // foreach (var guid in guids)
+        // {
+        //     var path = AssetDatabase.GUIDToAssetPath(guid);
+        //     var tile = AssetDatabase.LoadAssetAtPath(path, typeof(GameObject)) as GameObject;
+        //     tiles.Add(tile);
+        // }
+        foreach (var tile in loadedTiles)
         {
-            var path = AssetDatabase.GUIDToAssetPath(guid);
-            var tile = AssetDatabase.LoadAssetAtPath(path, typeof(GameObject)) as GameObject;
             tiles.Add(tile);
         }
     }
