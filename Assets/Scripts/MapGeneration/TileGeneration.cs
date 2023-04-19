@@ -54,7 +54,6 @@ public class TileGeneration : MonoBehaviour
     private void GenerateButtonTile(GameObject generatedTile)
     {
         Vector3 buttonTilePosition = DetermineButtonTilePosition(generatedTile);
-        Debug.Log("Button tile position:"+buttonTilePosition);
         GameObject tileObject = Instantiate(buttonTile,
             buttonTilePosition,
             Quaternion.identity);

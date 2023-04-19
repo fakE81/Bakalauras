@@ -8,7 +8,7 @@ public class Node : MonoBehaviour
     private Material startMaterial;
     public Material hoverMaterial;
     public Material cantBuildMaterial;
-
+    public bool hasMine;
 
     private GameObject unit;
     private UnitBlueprint blueprint;
@@ -20,6 +20,7 @@ public class Node : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        hasMine = false;
         rend = GetComponentInChildren<Renderer>();
         startMaterial = rend.material;
         buildmanager = BuildManager.instance;
@@ -62,9 +63,9 @@ public class Node : MonoBehaviour
 
     private bool CanBuild(int index)
     {
-        if (groundType == 0 && index == 3)
+        if (groundType == 0 && index == 4)
             return false;
-        if (groundType == 1 && (index == 0 || index == 1 || index == 2))
+        if (groundType == 1 && (index == 0 || index == 1 || index == 2 || index == 3))
             return false;
         return true;
     }

@@ -18,7 +18,14 @@ public class TowersUpgradeUI : MonoBehaviour
     {
         informationText.cost.text = towerInformation.upgradeCost + "c";
         informationText.level.text = "Level:" + towerInformation.level;
-        informationText.damage.text = "Damage:" + towerInformation.damage;
+        if (towerInformation.towerName == "Ice")
+        {
+            informationText.damage.text = "Slow:" + towerInformation.slow * 100 + "%";
+        }
+        else
+        {
+            informationText.damage.text = "Damage:" + towerInformation.damage;
+        }
         informationText.range.text = "Range:" + towerInformation.range;
         informationText.fireRate.text = "Fire Rate:" + towerInformation.fireRate + "/s";
     }

@@ -3,11 +3,10 @@ using UnityEngine;
 
 public abstract class Tower : MonoBehaviour
 {
-    [SerializeField] private String name;
-    [SerializeField] private TowerInformation towerInformation;
-    [SerializeField] private AudioSource audioSource;
-    [SerializeField] private GameObject arrowPrefab;
-    [SerializeField] private Transform firePoint;
+    [SerializeField] protected TowerInformation towerInformation;
+    [SerializeField] protected AudioSource audioSource;
+    [SerializeField] protected GameObject arrowPrefab;
+    [SerializeField] protected Transform firePoint;
 
     protected Transform target;
     protected float fireCountdown = 0f;

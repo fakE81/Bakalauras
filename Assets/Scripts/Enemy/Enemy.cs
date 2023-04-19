@@ -13,49 +13,42 @@ public class Enemy : MonoBehaviour
 
     // Health bar padaryti kad nesisuktu.
     public Image healthBar;
+    public Image slowImage;
     public GameObject damagePopUp;
 
     public GameObject dieEffect;
     public bool isDead;
 
-    //DEBUG:
-    private Vector3 currentPosition;
-    private Vector3 previousPosition;
-    private Vector3 velocity;
-    private Vector3 futurePosition;
+    // Slowness
+    private float currentSpeed;
+    private bool slowed;
+
+    private float slowedTime;
 
     // Start is called before the first frame update
     void Start()
     {
+        slowImage.enabled = false;
         isDead = false;
         target = Waypoints.getWaypoints()[0];
         // Issisaugom gyvybes kiekvienam objektui.
         startHealh = (int)blueprint.health;
         health = startHealh;
-
-
-        // DEBUG:
-        currentPosition = transform.position;
-        previousPosition = currentPosition;
+        currentSpeed = blueprint.speed;
+        slowed = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Calculate velocity using the change in position over time
-        currentPosition = transform.position;
-        velocity = (currentPosition - previousPosition) / Time.deltaTime;
-        previousPosition = currentPosition;
+        Movement();
+        SlowEffect();
+    }
 
-        // Calculate future position based on current position and velocity
-        float time = 3f; // Time in seconds to predict the future position
-        futurePosition = currentPosition + velocity * time;
-        Debug.DrawLine(currentPosition, futurePosition, Color.green);
-
-
-        // Movement:
+    private void Movement()
+    {
         Vector3 dir = target.position - transform.position;
-        transform.Translate(dir.normalized * blueprint.speed * Time.deltaTime, Space.World);
+        transform.Translate(dir.normalized * currentSpeed * Time.deltaTime, Space.World);
         transform.LookAt(target);
 
         if (Vector3.Distance(transform.position, target.position) <= 0.2f)
@@ -66,14 +59,12 @@ public class Enemy : MonoBehaviour
 
     void GetNextWaypoint()
     {
-        // Debug.Log(wavePointIndex + " >=" + Waypoints.getSize());
         if (wavePointIndex >= Waypoints.getWaypoints().Length - 1 && !isDead)
         {
-            // Jei pasiekiam mazinam gyvybes.
             isDead = true;
             PlayerStats.CastleHealth--;
             Die();
-            return; // Nes uztrunka istrinti
+            return;
         }
 
         wavePointIndex++;
@@ -110,5 +101,32 @@ public class Enemy : MonoBehaviour
     {
         GameObject obj = Instantiate(dieEffect, transform.position, Quaternion.identity);
         Destroy(obj, 1f);
+    }
+
+    public void TakeSlowness(float slow)
+    {
+        if (!slowed)
+        {
+            slowed = true;
+            currentSpeed -= blueprint.speed * (1f - slow);
+            slowedTime = Time.realtimeSinceStartup;
+        }
+    }
+
+    private void SlowEffect()
+    {
+        if (slowed && slowImage.enabled == false)
+        {
+            slowImage.enabled = true;
+            // Do countdown or something
+        }
+
+        // How long slow effects.
+        if (Time.realtimeSinceStartup - slowedTime > 1.5f)
+        {
+            slowed = false;
+            currentSpeed = blueprint.speed;
+            slowImage.enabled = false;
+        }
     }
 }
