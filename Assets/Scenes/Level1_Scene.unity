@@ -199,8 +199,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 369925363}
-  m_LocalRotation: {x: -0.6840471, y: -0.0038401657, z: 0.003804393, w: -0.7294178}
-  m_LocalPosition: {x: 25.027887, y: 32.225067, z: -0.6973305}
+  m_LocalRotation: {x: -0.6829568, y: -0.0027642194, z: 0.0027616122, w: -0.73044837}
+  m_LocalPosition: {x: 16.991577, y: 37.38449, z: 15.027239}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -237,10 +237,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridWidth: 9
   gridHeight: 9
-  minPathLength: 18
+  minPathLength: 20
   blocksSize: 6
+  startPos: {x: 4, y: 0}
+  endPos: {x: 4, y: 8}
   pathCellsOjbects:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 67fd886bef56bbb4585ae811d786ccd0, type: 2}
   - {fileID: 11400000, guid: 51c7cefd1b59b124ba40a885459bdf85, type: 2}
   - {fileID: 11400000, guid: bb9f6974a29896f4e9dd1106f0ab0509, type: 2}
   - {fileID: 11400000, guid: 51c7cefd1b59b124ba40a885459bdf85, type: 2}
@@ -264,6 +266,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 331a34ef69d57bc47bf3c8dade84db84, type: 2}
   - {fileID: 11400000, guid: df45228c4d66f0f4a970a9e15aadc54f, type: 2}
   - {fileID: 11400000, guid: b8f89f0ac01e3fc458cbd09c74c70d70, type: 2}
+  startEndPathObjects:
+  - {fileID: 11400000, guid: a69cc4193e1943445a7314005b2f53e8, type: 2}
+  - {fileID: 11400000, guid: d3bbed33f42628f4cb7e2d4eaa23218d, type: 2}
+  - {fileID: 11400000, guid: bc3715be78222434687cdaa92075b716, type: 2}
+  - {fileID: 11400000, guid: f284b299d5cd8c345a049263c23ab5c2, type: 2}
+  - {fileID: 11400000, guid: 88735c1986e776a47800c980ffdf16e8, type: 2}
+  - {fileID: 11400000, guid: 76a23574372736c40872805c0d74d222, type: 2}
+  - {fileID: 11400000, guid: b1fe6d33bdf5bee4cbe61c5fa45e6b7e, type: 2}
 --- !u!4 &603651990
 Transform:
   m_ObjectHideFlags: 0
