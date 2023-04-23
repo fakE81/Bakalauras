@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -8,50 +9,47 @@ public class GridManager : MonoBehaviour
 {
     private PathGenerator pathGenerator;
 
+    public bool isDemo = false;
+
     public int gridWidth = 16;
     public int gridHeight = 8;
     public int minPathLength = 25;
     public int blocksSize = 2;
+    public int pathDirectionRestriction;
     public Vector2Int startPos;
     public Vector2Int endPos;
-    private Vector2Int pathOffset = new Vector2Int(0,0);
-    private Vector2Int sceneryLayOffset = new Vector2Int(0, 0);
+    private int pathDirection = 0;
+    private Vector2Int pathOffset = new Vector2Int(10, 0);
+    private Vector2Int sceneryLayOffset = new Vector2Int(9 * 10, 0);
 
     public GridCellObject[] pathCellsOjbects;
     public GridCellObject[] sceneryCellObjects;
     public PathCellObject[] startEndPathObjects;
 
+    public GameObject tileContainer;
+    private LinkedList<GameObject> tileContainerList = new LinkedList<GameObject>();
+
+    private bool unlockNextTile;
+
     // Start is called before the first frame update
     void Start()
     {
-        // int startingPos = 0;
-        // int endCellX = 8;
-        // int temporaryGridWidth = gridWidth;
-        // pathGenerator = new PathGenerator(temporaryGridWidth, gridHeight);
-        //
-        // List<Vector2Int> pathCells = pathGenerator.GeneratePath(startPos, endPos);
-        // int count = 0;
-        // while (pathCells == null || count < minPathLength)
-        // {
-        //     pathCells = pathGenerator.GeneratePath(startPos, endPos);
-        //     if (pathCells != null)
-        //     {
-        //         count = pathCells.Count;
-        //     }
-        // }
-        // int pathSize = pathCells.Count;
-        // // For galima cia butu ideti
-        // while (pathSize < minPathLength)
-        // {
-        //     pathCells = pathGenerator.GeneratePath(new Vector2Int(0,4), new Vector2Int(8,4));
-        //     pathSize = pathCells.Count;
-        // }
-
+        unlockNextTile = false;
         StartCoroutine(CreateMultipleDEMO());
+    }
+
+    private void Update()
+    {
+        if (unlockNextTile && !isDemo)
+        {
+            ShowUnlockButton();
+            unlockNextTile = false;
+        }
     }
 
     private IEnumerator CreateMultipleDEMO()
     {
+        // First Tyle type:
         TileType currentType = TileType.UpUp;
         for (int i = 0; i < blocksSize; i++)
         {
@@ -69,81 +67,67 @@ public class GridManager : MonoBehaviour
                     count = pathCells.Count;
                 }
             }
-            Debug.Log("Generated path in " + timesGenerated + " times!!");
 
             yield return StartCoroutine(CreateGrid(pathCells, sceneryLayOffset));
-            // Pagal direction turetu keistis.
             currentType = DetermineNextTileType(currentType);
-            Debug.Log("Next Tile type:" + currentType.ToString());
             DetermineOffsets(currentType);
-            Debug.Log("Start coordinates: " + startPos.x + " " + startPos.y);
-            Debug.Log("End coordinates: " + endPos.x + " " + endPos.y);
-            // startPos = new Vector2Int(endPos.x + 1, endPos.y);
-            // endPos = new Vector2Int(endPos.x + gridWidth, endPos.y);
-            // offset.x++;
-            // sceneryLayOffset.x+=gridWidth; // Depends kur stumames
-        }
-    }
-
-    private IEnumerator CreateMultipleGridBlocks()
-    {
-        int startingPos = 0;
-        int endCellX = 8;
-        int temporaryGridWidth = gridWidth;
-        for (int i = 0; i < blocksSize; i++)
-        {
-            pathGenerator = new PathGenerator(temporaryGridWidth, gridHeight);
-
-            List<Vector2Int> pathCells = pathGenerator.GeneratePath(startingPos);
-            int pathSize = pathCells.Count;
-            // For galima cia butu ideti
-            while (pathSize < minPathLength || !pathCells.Contains(new Vector2Int(endCellX, 4)))
+            if (isDemo)
             {
-                pathCells = pathGenerator.GeneratePath(startingPos);
-                pathSize = pathCells.Count;
+                Debug.Log("Generated path in " + timesGenerated + " times!!");
+                Debug.Log("Start coordinates: " + startPos.x + " " + startPos.y);
+                Debug.Log("End coordinates: " + endPos.x + " " + endPos.y);
             }
-
-            yield return StartCoroutine(CreateGrid(pathCells, new Vector2Int()));
-            startingPos += 9;
-            endCellX = startingPos + 8;
-            temporaryGridWidth += gridWidth;
         }
+
+        unlockNextTile = true;
     }
 
     private IEnumerator CreateGrid(List<Vector2Int> pathCells, Vector2Int sceneryLayOffset)
     {
-        yield return StartCoroutine(LayPathCells(pathCells));
-        yield return StartCoroutine(LaySceneryCells(sceneryLayOffset));
+        // Parent Gameobject:
+        GameObject tileHolder = Instantiate(tileContainer, CalculateMiddlePoint(), Quaternion.identity);
+        yield return StartCoroutine(LayPathCells(pathCells, tileHolder));
+        yield return StartCoroutine(LaySceneryCells(sceneryLayOffset, tileHolder));
+        if (!isDemo)
+        {
+            tileHolder.transform.GetChild(0).gameObject.SetActive(false);
+            tileHolder.GetComponent<TileContainer>().pathCells = pathCells;
+            tileContainerList.AddFirst(tileHolder);
+        }
     }
 
-    private IEnumerator LayPathCells(List<Vector2Int> pathCells)
+    private IEnumerator LayPathCells(List<Vector2Int> pathCells, GameObject tileHolder)
     {
         foreach (var pathCell in pathCells)
         {
-            int neigbourValue = pathGenerator.GetCellNeighbourValue(pathCell.x, pathCell.y, startPos, endPos, startEndPathObjects);
-            //Debug.Log("Tile " + pathCell.x + "," + pathCell.y + " NValue" + neigbourValue);
+            int neigbourValue =
+                pathGenerator.GetCellNeighbourValue(pathCell.x, pathCell.y, startPos, endPos, startEndPathObjects);
+            Debug.Log("Tile " + pathCell.x + "," + pathCell.y + " NValue" + neigbourValue);
             GameObject pathTile = pathCellsOjbects[neigbourValue].cellPrefab;
             GameObject pathTileCell =
                 Instantiate(pathTile, new Vector3(pathCell.x, 0f, pathCell.y), Quaternion.identity);
             pathTileCell.transform.Rotate(0f, pathCellsOjbects[neigbourValue].yRotation, 0f);
-            yield return new WaitForSeconds(0.1f);
+            pathTileCell.transform.SetParent(tileHolder.transform.GetChild(0).transform);
+            yield return new WaitForSeconds(0.03f);
         }
 
         yield return null;
     }
 
-    private IEnumerator LaySceneryCells(Vector2Int sceneryLayOffset)
+    private IEnumerator LaySceneryCells(Vector2Int sceneryLayOffset, GameObject tileHolder)
     {
-        for (int x = sceneryLayOffset.x; x < sceneryLayOffset.x+gridWidth; x++)
+        for (int x = sceneryLayOffset.x; x < sceneryLayOffset.x + gridWidth; x++)
         {
             for (int y = sceneryLayOffset.y; y < sceneryLayOffset.y + gridHeight; y++)
             {
                 if (pathGenerator.CellIsFree(x, y))
                 {
                     int randomSceneryCellIndex = Random.Range(0, sceneryCellObjects.Length);
-                    Instantiate(sceneryCellObjects[randomSceneryCellIndex].cellPrefab, new Vector3(x, 0f, y),
+                    var sceneryObject = Instantiate(sceneryCellObjects[randomSceneryCellIndex].cellPrefab,
+                        new Vector3(x, 0f, y),
                         Quaternion.identity);
-                    yield return new WaitForSeconds(0.05f);
+                    sceneryObject.transform.SetParent(tileHolder.transform.GetChild(0).transform);
+                    yield return new WaitForSeconds(0.001f);
                 }
             }
         }
@@ -153,16 +137,36 @@ public class GridManager : MonoBehaviour
 
     private TileType DetermineNextTileType(TileType type)
     {
-        // if (type == TileType.LeftLeft || type == TileType.UpLeft)
-        // {
-        //     TileType[] types = { TileType.LeftLeft, TileType.LeftUp };
-        //     return types[Random.Range(0, 1)];
-        // }
+        if (pathDirection <= -pathDirectionRestriction && type == TileType.LeftLeft)
+        {
+            return TileType.LeftUp;
+        }
+
+        if (pathDirection <= -pathDirectionRestriction && type == TileType.LeftUp)
+        {
+            return TileType.UpRight;
+        }
+
+        if (pathDirection >= pathDirectionRestriction && type == TileType.RightRight)
+        {
+            return TileType.RightUp;
+        }
+
+        if (pathDirection >= pathDirectionRestriction && type == TileType.RightUp)
+        {
+            return TileType.UpLeft;
+        }
+
+        if (type == TileType.LeftLeft || type == TileType.UpLeft)
+        {
+            TileType[] types = { TileType.LeftLeft, TileType.LeftUp };
+            return types[Random.Range(0, 2)];
+        }
 
         if (type == TileType.LeftUp || type == TileType.RightUp || type == TileType.UpUp)
         {
-            TileType[] types = {TileType.UpRight };
-            return types[Random.Range(0, 1)];
+            TileType[] types = { TileType.UpLeft, TileType.UpRight, TileType.UpUp };
+            return types[Random.Range(0, 3)];
         }
 
         if (type == TileType.RightRight || type == TileType.UpRight)
@@ -170,6 +174,7 @@ public class GridManager : MonoBehaviour
             TileType[] types = { TileType.RightRight, TileType.RightUp };
             return types[Random.Range(0, 2)];
         }
+
         Debug.LogError("Next Tile type doesn't exist");
         return TileType.LeftLeft;
     }
@@ -180,43 +185,47 @@ public class GridManager : MonoBehaviour
         {
             case TileType.LeftLeft:
                 pathOffset.x--;
-                sceneryLayOffset.x-=gridWidth;
+                sceneryLayOffset.x -= gridWidth;
                 startPos = new Vector2Int(endPos.x - 1, endPos.y);
                 endPos = new Vector2Int(endPos.x - gridWidth, endPos.y);
+                pathDirection--;
                 break;
             case TileType.LeftUp:
                 pathOffset.x--;
-                sceneryLayOffset.x-=gridWidth;
+                sceneryLayOffset.x -= gridWidth;
                 startPos = new Vector2Int(endPos.x - 1, endPos.y);
-                endPos = new Vector2Int(endPos.x - 4, endPos.y + 4);
+                endPos = new Vector2Int(endPos.x - 5, endPos.y + 4);
+                pathDirection--;
                 break;
             case TileType.RightRight:
                 pathOffset.x++;
-                sceneryLayOffset.x+=gridWidth;
+                sceneryLayOffset.x += gridWidth;
                 startPos = new Vector2Int(endPos.x + 1, endPos.y);
                 endPos = new Vector2Int(endPos.x + gridWidth, endPos.y);
+                pathDirection++;
                 break;
             case TileType.RightUp:
                 pathOffset.x++;
-                sceneryLayOffset.x+=gridWidth;
+                sceneryLayOffset.x += gridWidth;
                 startPos = new Vector2Int(endPos.x + 1, endPos.y);
                 endPos = new Vector2Int(endPos.x + 5, endPos.y + 4);
+                pathDirection++;
                 break;
             case TileType.UpUp:
                 pathOffset.y++;
-                sceneryLayOffset.y+=gridWidth;
+                sceneryLayOffset.y += gridWidth;
                 startPos = new Vector2Int(endPos.x, endPos.y + 1);
                 endPos = new Vector2Int(endPos.x, endPos.y + gridWidth);
                 break;
             case TileType.UpRight:
                 pathOffset.y++;
-                sceneryLayOffset.y+=gridWidth;
+                sceneryLayOffset.y += gridWidth;
                 startPos = new Vector2Int(endPos.x, endPos.y + 1);
                 endPos = new Vector2Int(endPos.x + 4, endPos.y + 5);
                 break;
             case TileType.UpLeft:
                 pathOffset.y++;
-                sceneryLayOffset.y+=gridWidth;
+                sceneryLayOffset.y += gridWidth;
                 startPos = new Vector2Int(endPos.x, endPos.y + 1);
                 endPos = new Vector2Int(endPos.x - 4, endPos.y + 5);
                 break;
@@ -224,4 +233,23 @@ public class GridManager : MonoBehaviour
                 throw new ArgumentOutOfRangeException(nameof(type), type, null);
         }
     }
+
+    private Vector3 CalculateMiddlePoint()
+    {
+        return new Vector3(sceneryLayOffset.x + 4, 0, sceneryLayOffset.y + 4);
+    }
+
+    public void ShowUnlockButton()
+    {
+        if (tileContainerList.Count != 0)
+        {
+            tileContainerList.Last().transform.GetChild(1).gameObject.SetActive(true);
+            tileContainerList.RemoveLast();   
+        }
+        else
+        {
+            Debug.Log("Tile container is empty!");
+        }
+    }
+    
 }

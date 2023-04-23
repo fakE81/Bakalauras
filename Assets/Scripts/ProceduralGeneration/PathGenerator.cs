@@ -72,7 +72,7 @@ public class PathGenerator
         // Convert to grid coordinates:
         start = ConvertToGridCoordinates(start);
         end = ConvertToGridCoordinates(end);
-        
+
         InitializeGrid();
         // Create lists for open and closed nodes
         List<Vector2Int> openNodes = new List<Vector2Int>();
@@ -293,10 +293,6 @@ public class PathGenerator
 
     private Vector2Int ConvertToGridCoordinates(Vector2Int coordinates)
     {
-        if (coordinates.x < 0)
-        {
-            return new Vector2Int(Mathf.Abs(coordinates.x+1) % 9,Mathf.Abs(coordinates.y) % 9);
-        }
         return new Vector2Int(Mathf.Abs(coordinates.x) % 9,Mathf.Abs(coordinates.y) % 9);
     }
 
