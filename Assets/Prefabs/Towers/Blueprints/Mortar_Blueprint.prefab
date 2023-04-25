@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 769044ca1d3b04e41822f09ec7d0218f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 6833962513178916449, guid: fd56acebef1b39e4fb5d70f590c74e62, type: 3}
-  cost: 30
+  prefab: {fileID: 2839306896118517822, guid: fe0988727aab1a54ebc85f79e8743070, type: 3}
+  cost: 60
   costIncrease: 30
   BASE_COST: 30

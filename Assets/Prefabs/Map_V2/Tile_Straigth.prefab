@@ -9,9 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5320597264422265147}
-  m_Layer: 0
+  - component: {fileID: 5843032571598282469}
+  - component: {fileID: 3164025045596694521}
+  m_Layer: 7
   m_Name: Tile_Straigth
-  m_TagString: Untagged
+  m_TagString: dirt_block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,6 +33,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5843032571598282469
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4800097957980257153}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.7002797, z: 1}
+  m_Center: {x: 0, y: -0.14986014, z: 0}
+--- !u!114 &3164025045596694521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4800097957980257153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cfaf674bfcde1341bd0e95f3f625c55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverMaterial: {fileID: 2100000, guid: a5f79e7eb46486d4f92ee8a21d75156a, type: 2}
+  cantBuildMaterial: {fileID: 2100000, guid: 240cdea7447510245aa5c47039122a31, type: 2}
+  hasMine: 0
+  offset: 0
+  groundType: 1
 --- !u!1 &5002736517346836221
 GameObject:
   m_ObjectHideFlags: 0
@@ -42,7 +74,7 @@ GameObject:
   - component: {fileID: 6774248950848039826}
   - component: {fileID: 8856146022964365185}
   - component: {fileID: 5515124079869966135}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: tile_straight
   m_TagString: Untagged
   m_Icon: {fileID: 0}

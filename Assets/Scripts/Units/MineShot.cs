@@ -18,7 +18,7 @@ public class MineShot : MonoBehaviour, IProjectile
     public void Seek(Transform target, float damage)
     {
         // Move mine:
-        targetPosition = new Vector3(target.position.x, target.position.y + 1.7f, target.position.z);
+        targetPosition = new Vector3(target.position.x, target.position.y + 0.17f, target.position.z);
         node = target.GetComponent<Node>();
         StartMoving();
         this.damage = damage;

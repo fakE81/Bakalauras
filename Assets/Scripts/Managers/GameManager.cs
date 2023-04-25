@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
 
     public void handleInformationUI(Transform pos, TowerInformation towerInformation)
     {
-        if (informationUI.transform.position.Equals(new Vector3(pos.position.x, 3.4f, pos.position.z)) &&
+        if (informationUI.transform.position.Equals(new Vector3(pos.position.x, 0.25f, pos.position.z)) &&
             informationUI.activeSelf)
         {
             informationUI.SetActive(false);

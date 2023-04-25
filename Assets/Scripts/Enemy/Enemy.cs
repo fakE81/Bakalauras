@@ -5,7 +5,7 @@ public class Enemy : MonoBehaviour
 {
     // Stats skirti butent vienai kategorijai priesu.
     public EnemyBlueprint blueprint;
-    private Transform target;
+    private Vector3 target;
     private int wavePointIndex = 0;
 
     private float health;
@@ -47,11 +47,11 @@ public class Enemy : MonoBehaviour
 
     private void Movement()
     {
-        Vector3 dir = target.position - transform.position;
+        Vector3 dir = target - transform.position;
         transform.Translate(dir.normalized * currentSpeed * Time.deltaTime, Space.World);
         transform.LookAt(target);
 
-        if (Vector3.Distance(transform.position, target.position) <= 0.2f)
+        if (Vector3.Distance(transform.position, target) <= 0.2f)
         {
             GetNextWaypoint();
         }

@@ -12,7 +12,7 @@ public class InformationUI : MonoBehaviour
 
     public void updateInformation(Transform pos, TowerInformation towerInformation)
     {
-        transform.position = new Vector3(pos.position.x, 3.4f, pos.position.z);
+        transform.position = new Vector3(pos.position.x, 0.25f, pos.position.z);
         // Calculate the rotation angle around the Y-axis
         Vector3 direction = cameraTransform.position - transform.position;
         direction.y = 0.0f;

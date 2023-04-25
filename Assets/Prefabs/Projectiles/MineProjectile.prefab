@@ -109,8 +109,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8297300734941610632}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.15643978, y: 1.7596328, z: -10.600098}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 8078907497218648426}
   m_Father: {fileID: 0}
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionEffect: {fileID: 8658476782730480546, guid: 905e29338f6c88241a416fa9a9abdebf, type: 3}
   audioSource: {fileID: 2808236049201623899, guid: 7bb6a1f8ccaf9354e92e3c63f93353b2, type: 3}
-  moveSpeed: 1.5
+  moveSpeed: 1
 --- !u!54 &6633537549069664983
 Rigidbody:
   m_ObjectHideFlags: 0

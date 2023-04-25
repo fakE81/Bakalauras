@@ -1,12 +1,15 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class GridManager : MonoBehaviour
+public class GridManagerDEMO : MonoBehaviour
 {
     private PathGenerator pathGenerator;
+
+    public bool isDemo = false;
 
     public int gridWidth = 16;
     public int gridHeight = 8;
@@ -32,19 +35,19 @@ public class GridManager : MonoBehaviour
     void Start()
     {
         unlockNextTile = false;
-        CreateTiles();
+        StartCoroutine(CreateMultipleDEMO());
     }
 
     private void Update()
     {
-        if (unlockNextTile)
+        if (unlockNextTile && !isDemo)
         {
             ShowUnlockButton();
             unlockNextTile = false;
         }
     }
 
-    private void CreateTiles()
+    private IEnumerator CreateMultipleDEMO()
     {
         // First Tyle type:
         TileType currentType = TileType.UpUp;
@@ -65,26 +68,35 @@ public class GridManager : MonoBehaviour
                 }
             }
 
-            CreateGrid(pathCells, sceneryLayOffset);
+            yield return StartCoroutine(CreateGrid(pathCells, sceneryLayOffset));
             currentType = DetermineNextTileType(currentType);
             DetermineOffsets(currentType);
+            if (isDemo)
+            {
+                Debug.Log("Generated path in " + timesGenerated + " times!!");
+                Debug.Log("Start coordinates: " + startPos.x + " " + startPos.y);
+                Debug.Log("End coordinates: " + endPos.x + " " + endPos.y);
+            }
         }
 
         unlockNextTile = true;
     }
 
-    private void CreateGrid(List<Vector2Int> pathCells, Vector2Int sceneryLayOffset)
+    private IEnumerator CreateGrid(List<Vector2Int> pathCells, Vector2Int sceneryLayOffset)
     {
         // Parent Gameobject:
         GameObject tileHolder = Instantiate(tileContainer, CalculateMiddlePoint(), Quaternion.identity);
-        LayPathCells(pathCells, tileHolder);
-        LaySceneryCells(sceneryLayOffset, tileHolder);
-        tileHolder.transform.GetChild(0).gameObject.SetActive(false);
-        tileHolder.GetComponent<TileContainer>().pathCells = pathCells;
-        tileContainerList.AddFirst(tileHolder);
+        yield return StartCoroutine(LayPathCells(pathCells, tileHolder));
+        yield return StartCoroutine(LaySceneryCells(sceneryLayOffset, tileHolder));
+        if (!isDemo)
+        {
+            tileHolder.transform.GetChild(0).gameObject.SetActive(false);
+            tileHolder.GetComponent<TileContainer>().pathCells = pathCells;
+            tileContainerList.AddFirst(tileHolder);
+        }
     }
 
-    private void LayPathCells(List<Vector2Int> pathCells, GameObject tileHolder)
+    private IEnumerator LayPathCells(List<Vector2Int> pathCells, GameObject tileHolder)
     {
         foreach (var pathCell in pathCells)
         {
@@ -96,10 +108,13 @@ public class GridManager : MonoBehaviour
                 Instantiate(pathTile, new Vector3(pathCell.x, 0f, pathCell.y), Quaternion.identity);
             pathTileCell.transform.Rotate(0f, pathCellsOjbects[neigbourValue].yRotation, 0f);
             pathTileCell.transform.SetParent(tileHolder.transform.GetChild(0).transform);
+            yield return new WaitForSeconds(0.03f);
         }
+
+        yield return null;
     }
 
-    private void LaySceneryCells(Vector2Int sceneryLayOffset, GameObject tileHolder)
+    private IEnumerator LaySceneryCells(Vector2Int sceneryLayOffset, GameObject tileHolder)
     {
         for (int x = sceneryLayOffset.x; x < sceneryLayOffset.x + gridWidth; x++)
         {
@@ -112,9 +127,12 @@ public class GridManager : MonoBehaviour
                         new Vector3(x, 0f, y),
                         Quaternion.identity);
                     sceneryObject.transform.SetParent(tileHolder.transform.GetChild(0).transform);
+                    yield return new WaitForSeconds(0.001f);
                 }
             }
         }
+
+        yield return null;
     }
 
     private TileType DetermineNextTileType(TileType type)
@@ -233,4 +251,5 @@ public class GridManager : MonoBehaviour
             Debug.Log("Tile container is empty!");
         }
     }
+    
 }

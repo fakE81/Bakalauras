@@ -22,7 +22,7 @@ public class Node : MonoBehaviour
     {
         hasMine = false;
         rend = GetComponentInChildren<Renderer>();
-        startMaterial = rend.material;
+        startMaterial = rend.materials[1];
         buildmanager = BuildManager.instance;
     }
 
@@ -74,20 +74,25 @@ public class Node : MonoBehaviour
     {
         if (!buildmanager.buildingMode)
             return;
+        Material[] mesh = rend.materials;
         if (CanBuild(buildmanager.currentSelectedUnit) && buildmanager.HasMoney)
         {
-            rend.material = hoverMaterial;
+            mesh[1] = hoverMaterial;
         }
         else
         {
-            rend.material = cantBuildMaterial;
+            mesh[1] = cantBuildMaterial;
         }
+
+        rend.materials = mesh;
     }
 
     private void OnMouseExit()
     {
+        Material[] mesh = rend.materials;
         if (!buildmanager.buildingMode)
             return;
-        rend.material = startMaterial;
+        mesh[1] = startMaterial;
+        rend.materials = mesh;
     }
 }

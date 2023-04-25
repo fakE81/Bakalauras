@@ -24,7 +24,7 @@ public class MainMenu : MonoBehaviour
 
     public void StartBanditMap()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     public void OpenOptionMenu()

@@ -10,7 +10,7 @@ public class WaveSpawner : MonoBehaviour
     private Wave currentWave;
     public Transform enemyPrefab;
 
-    [SerializeField] private Transform spawnPoint;
+    [SerializeField] private Vector3 spawnPoint;
 
     private int waveIndex = 1;
     private float multiplier = 1;
@@ -53,6 +53,7 @@ public class WaveSpawner : MonoBehaviour
         {
             startedSpawning = false;
             finishedSpawning = false;
+            GameObject.FindWithTag("GameController").GetComponent<GridManager>().ShowUnlockButton();
             gameManager.changeGamestate(Gamestate.ClearedWave);
             //gameManager.selectPowerUI();
             multiplier += 0.3f;
@@ -81,7 +82,7 @@ public class WaveSpawner : MonoBehaviour
     void SpawnEnemy(GameObject enemy)
     {
         //enemiesCount++;
-        Instantiate(enemy, spawnPoint.position, spawnPoint.rotation);
+        Instantiate(enemy, spawnPoint, Quaternion.identity);
     }
 
     private void ChangeBaseWave()
