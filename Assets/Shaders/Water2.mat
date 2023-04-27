@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Water2
+  m_Shader: {fileID: -6465566751694194690, guid: 9d892fb69e7061349b9e21f2e980628f, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 1
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - Depth_Fade: 2.74
+    - Foam_Depth: 1.21
+    - Foam_Noise_Scale: 4.34
+    - Foam_Ripple_Speed: 0.4
+    - Water_Height: 0.79
+    - Water_Noise_Scale: 0.16
+    - Water_Speed: 1.09
+    m_Colors:
+    - Deep_Water_Color: {r: 0.05918475, g: 0.4209192, b: 0.6603774, a: 0}
+    - Foam_Color: {r: 1, g: 1, b: 1, a: 1}
+    - Shallow_Color: {r: 0.2875134, g: 0.7136326, b: 0.8584906, a: 1}
+  m_BuildTextureStacks: []
