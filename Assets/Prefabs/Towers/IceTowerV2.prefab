@@ -194,7 +194,7 @@ MonoBehaviour:
     level: 1
     upgradeCost: 2
     slow: 0.3
-  audioSource: {fileID: 7884457952372065671}
+  AudioPrefab: {fileID: 2808236049201623899, guid: 5fcbc9c46017bb441bae0a8a7096fc7e, type: 3}
   arrowPrefab: {fileID: 875122091703348766, guid: d017b94e53e54e14fb6949c4265810b2, type: 3}
   firePoint: {fileID: 2249905237932404}
 --- !u!1 &3637036607611255603

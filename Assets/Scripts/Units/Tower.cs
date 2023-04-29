@@ -4,7 +4,7 @@ using UnityEngine;
 public abstract class Tower : MonoBehaviour
 {
     [SerializeField] protected TowerInformation towerInformation;
-    [SerializeField] protected AudioSource audioSource;
+    [SerializeField] protected GameObject AudioPrefab;
     [SerializeField] protected GameObject arrowPrefab;
     [SerializeField] protected Transform firePoint;
 
@@ -70,7 +70,8 @@ public abstract class Tower : MonoBehaviour
         {
             projectile.Seek(target, towerInformation.damage);
         }
-        audioSource.Play();
+
+        Instantiate(AudioPrefab, target.position, Quaternion.identity);
     }
 
     protected virtual void TowerRotation()

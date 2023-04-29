@@ -32,6 +32,7 @@ public class IceTower : Tower
         {
             projectile.Seek(target, towerInformation.slow);
         }
-        audioSource.Play();
+
+        Instantiate(AudioPrefab, gameObject.transform.position, Quaternion.identity);
     }
 }

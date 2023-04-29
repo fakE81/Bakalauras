@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,23 @@ public class TileContainer : MonoBehaviour
 
     public List<Vector2Int> pathCells;
     private GameManager gameManager;
+    private bool unlocked = false;
+
+    private void Update()
+    {
+        if (unlocked)
+        {
+            // Move Tile block:
+            float newY = transform.position.y + Time.deltaTime * 1.5f;
+            transform.position = new Vector3(transform.position.x, newY, transform.position.z);
+            if (transform.position.y >= 0)
+            {
+                transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
+                unlocked = false;
+                gameManager.changeGamestate(Gamestate.StartedWave);
+            }
+        }
+    }
 
     public void UnlockTiles()
     {
@@ -31,6 +49,8 @@ public class TileContainer : MonoBehaviour
             Waypoints.addWaypoint(new Vector3(pathCell.x, 0.17f, pathCell.y));
         }
         Waypoints.ReverseWaypoints();
-        gameManager.changeGamestate(Gamestate.StartedWave);
+        // gameManager.changeGamestate(Gamestate.StartedWave);
+        transform.position = new Vector3(transform.position.x, -2f, transform.position.z);
+        unlocked = true;
     }
 }

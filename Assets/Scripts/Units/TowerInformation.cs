@@ -11,4 +11,8 @@ public class TowerInformation
     public int level = 1;
     public int upgradeCost = 2;
     public float slow = 0.1f;
+
+    public TowerInformation()
+    {
+    }
 }
