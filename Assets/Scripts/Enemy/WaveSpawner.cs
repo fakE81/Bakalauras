@@ -54,10 +54,18 @@ public class WaveSpawner : MonoBehaviour
             startedSpawning = false;
             finishedSpawning = false;
             GameObject.FindWithTag("GameController").GetComponent<GridManager>().ShowUnlockButton();
-            gameManager.changeGamestate(Gamestate.ClearedWave);
             //gameManager.selectPowerUI();
             multiplier += 0.3f;
             waveIndex++;
+            if (waveIndex == 11)
+            {
+                // Map is completed
+                gameManager.changeGamestate(Gamestate.Completed);
+            }
+            else
+            {
+                gameManager.changeGamestate(Gamestate.ClearedWave);
+            }
         }
     }
 
@@ -70,8 +78,8 @@ public class WaveSpawner : MonoBehaviour
             enemiesCount += enemiesToSpawn;
             for (int j = 0; j < enemiesToSpawn; j++)
             {
-                SpawnEnemy(enemy.enemy);
                 yield return new WaitForSeconds(Random.Range(rateMin, rateMax));
+                SpawnEnemy(enemy.enemy);
             }
             yield return new WaitForSeconds(timeRange);
         }

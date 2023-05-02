@@ -13,17 +13,9 @@ MonoBehaviour:
   m_Name: Wave_7
   m_EditorClassIdentifier: 
   enemies:
-  - enemy: {fileID: 5302485575906512777, guid: c3f534d388478254baeb8ad40dc2f97a, type: 3}
+  - enemy: {fileID: 1917309963074632125, guid: c9792e1fa193bd2469c586824ce16580, type: 3}
     count: 20
-    rateMin: 0.1
-    rateMax: 0.2
-  - enemy: {fileID: 5302485575906512777, guid: 67a4ab6c1e8c1a649962ddf9f32c89eb, type: 3}
-    count: 10
-    rateMin: 0.5
-    rateMax: 1
-  - enemy: {fileID: 5302485575906512777, guid: 1e3ed77c3f7e83b4888e752379f8129f, type: 3}
-    count: 1
-    rateMin: 0.5
+    rateMin: 0.3
     rateMax: 1
   startLevel: 7
   times: 1

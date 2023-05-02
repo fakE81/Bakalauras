@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverUI;
     public GameObject pauseUI;
     public GameObject powerUpUI;
+    public GameObject completedUI;
     private bool isPaused;
 
     private Gamestate gamestate;
@@ -37,6 +38,13 @@ public class GameManager : MonoBehaviour
     {
         if (GameIsOver)
             return;
+
+        if (gamestate == Gamestate.Completed)
+        {
+            // Show completed UI.
+            PlayerStatisticsManager.instance.BanditsHighscore = PlayerStats.Wave;
+            completedUI.SetActive(true);
+        }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {

@@ -49,7 +49,7 @@ public class MainMenu : MonoBehaviour
 
     public void OpenMapSelectMenu()
     {
-        banditsHighScore.text = "Highscore: " + playerStatisticsManager.BanditsHighscore; 
+        banditsHighScore.text = "Completed: " + playerStatisticsManager.BanditsHighscore+"/10"; 
         mainMenu.SetActive(false);
         mapSelectMenu.SetActive(true);
     }
