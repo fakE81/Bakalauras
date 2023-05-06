@@ -23,4 +23,18 @@ public class Mortar : Tower
         // Every second by 1
         fireCountdown -= Time.deltaTime;
     }
+
+    public override bool LevelUp()
+    {
+        PlayerStatisticsManager manager = PlayerStatisticsManager.instance;
+        if (manager.Coins >= towerInformation.upgradeCost)
+        {
+            towerInformation.level++;
+            manager.addCoins(-towerInformation.upgradeCost);
+            towerInformation.damage += 1f;
+            towerInformation.upgradeCost+=towerInformation.level;
+            return true;
+        }
+        return false;
+    }
 }

@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Wave_3
   m_EditorClassIdentifier: 
   enemies:
-  - enemy: {fileID: 2255969911879824691, guid: 221988d2e8ac43d45868261f406004c7, type: 3}
+  - enemy: {fileID: 1819472455509407413, guid: df896c7b2d1d5884ba978c8ed23d6376, type: 3}
     count: 5
     rateMin: 1
     rateMax: 2
-  - enemy: {fileID: 7854241135952130595, guid: 4d290a08c99821346864b77035cd75cc, type: 3}
+  - enemy: {fileID: 8971038020056569095, guid: f4acb44d048582946b6e42b4cf897dda, type: 3}
     count: 10
     rateMin: 0.5
     rateMax: 1

@@ -1006,7 +1006,7 @@ GameObject:
   - component: {fileID: 3445117314745261480}
   m_Layer: 0
   m_Name: Enemy_MushroomKing 1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1076,8 +1076,8 @@ MonoBehaviour:
   blueprint: {fileID: 11400000, guid: 21ee1009ffd0841419414b8662642763, type: 2}
   healthBar: {fileID: 2667029405773561817}
   slowImage: {fileID: 7147926331580124989}
-  damagePopUp: {fileID: 8658476782730480546, guid: 905e29338f6c88241a416fa9a9abdebf, type: 3}
-  dieEffect: {fileID: 5314864771031095944, guid: 3f262b3e66c02674cb36ee28cede79cd, type: 3}
+  damagePopUp: {fileID: 5314864771031095944, guid: 3f262b3e66c02674cb36ee28cede79cd, type: 3}
+  dieEffect: {fileID: 8658476782730480546, guid: 905e29338f6c88241a416fa9a9abdebf, type: 3}
   isDead: 0
 --- !u!1 &3649138962633563834
 GameObject:

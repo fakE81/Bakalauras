@@ -45,5 +45,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 2839306896118517822, guid: fe0988727aab1a54ebc85f79e8743070, type: 3}
   cost: 60
-  costIncrease: 30
-  BASE_COST: 30
+  costIncrease: 50
+  BASE_COST: 50

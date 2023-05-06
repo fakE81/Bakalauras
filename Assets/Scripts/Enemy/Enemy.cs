@@ -15,8 +15,7 @@ public class Enemy : MonoBehaviour
     public Image healthBar;
     public Image slowImage;
     public GameObject damagePopUp;
-
-    public GameObject dieEffect;
+    
     public bool isDead;
 
     // Slowness
@@ -24,6 +23,8 @@ public class Enemy : MonoBehaviour
     private bool slowed;
 
     private float slowedTime;
+
+    private Animator animator;
 
     // Start is called before the first frame update
     void Start()
@@ -36,13 +37,18 @@ public class Enemy : MonoBehaviour
         health = startHealh;
         currentSpeed = blueprint.speed;
         slowed = false;
+        animator = gameObject.GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Movement();
-        SlowEffect();
+        if (!isDead)
+        {
+            Movement();
+            SlowEffect();
+        }
+
     }
 
     private void Movement()
@@ -89,18 +95,11 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
-        Destroy(gameObject);
+        animator.SetBool("isDead", true);
+        Destroy(gameObject,2f);
         WaveSpawner.enemiesCount--;
         PlayerStats.EARNED_COINS += blueprint.coins;
         PlayerStats.Money += (int)blueprint.givesMoney;
-        DieEffect();
-    }
-
-
-    private void DieEffect()
-    {
-        GameObject obj = Instantiate(dieEffect, transform.position, Quaternion.identity);
-        Destroy(obj, 1f);
     }
 
     public void TakeSlowness(float slow)

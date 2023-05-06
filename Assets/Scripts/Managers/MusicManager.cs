@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class MusicManager : MonoBehaviour
 {
-    public static float SOUND_EFFECT_VOLUME = 1f;
-    public static float MUSIC_VOLUME = 1f;
+    public static float SOUND_EFFECT_VOLUME = 0f;
+    public static float MUSIC_VOLUME = 0f;
     public static MusicManager instance;
 
     private float timer = 1f;

@@ -10,7 +10,7 @@ public class TowerInformation
     public float turnSpeed = 3f;
     public int level = 1;
     public int upgradeCost = 2;
-    public float slow = 0.1f;
+    public int slow = 10;
 
     public TowerInformation()
     {

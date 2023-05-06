@@ -14,29 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemies:
   - enemy: {fileID: 8971038020056569095, guid: f4acb44d048582946b6e42b4cf897dda, type: 3}
-    count: 1
-    rateMin: 1
+    count: 5
+    rateMin: 0.5
     rateMax: 2
-  - enemy: {fileID: 1819472455509407413, guid: df896c7b2d1d5884ba978c8ed23d6376, type: 3}
-    count: 1
-    rateMin: 2
-    rateMax: 3
-  - enemy: {fileID: 3445117314745261486, guid: 80761dc4a0142c844a0881cda2976a68, type: 3}
-    count: 1
-    rateMin: 3
-    rateMax: 4
-  - enemy: {fileID: 774082420481036574, guid: c9792e1fa193bd2469c586824ce16580, type: 3}
-    count: 1
-    rateMin: 4
-    rateMax: 5
-  - enemy: {fileID: 3079488035761864715, guid: 8eb43006e0bb08149ad5cacce1992a73, type: 3}
-    count: 1
-    rateMin: 5
-    rateMax: 6
-  - enemy: {fileID: 5181981658625438264, guid: 2cdaff8045c4e3b49b88529e8b2fa2a5, type: 3}
-    count: 1
-    rateMin: 6
-    rateMax: 7
   startLevel: 1
   times: 1
   timeRange: 0

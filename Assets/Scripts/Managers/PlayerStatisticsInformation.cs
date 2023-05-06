@@ -5,4 +5,5 @@ public class PlayerStatisticsInformation
 {
     public int coins = 0;
     public int banditsHighscore = 0;
+    public int desertHighscore = 0;
 }

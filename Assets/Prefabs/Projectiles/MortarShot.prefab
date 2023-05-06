@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f52a793fa3295d41b78a93971cc28c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 7
+  radius: 4
   gravity: -9.81
   max: 3
   layerMask:

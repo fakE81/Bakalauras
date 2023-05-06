@@ -586,7 +586,7 @@ GameObject:
   - component: {fileID: 6160444651937628430}
   m_Layer: 0
   m_Name: Enemy_Mushroom 1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -655,8 +655,8 @@ MonoBehaviour:
   blueprint: {fileID: 11400000, guid: 169beab33617a0f44b07b5de3722ebd9, type: 2}
   healthBar: {fileID: 78286792323338422}
   slowImage: {fileID: 5788422317925661763}
-  damagePopUp: {fileID: 8658476782730480546, guid: 905e29338f6c88241a416fa9a9abdebf, type: 3}
-  dieEffect: {fileID: 5314864771031095944, guid: 3f262b3e66c02674cb36ee28cede79cd, type: 3}
+  damagePopUp: {fileID: 5314864771031095944, guid: 3f262b3e66c02674cb36ee28cede79cd, type: 3}
+  dieEffect: {fileID: 8658476782730480546, guid: 905e29338f6c88241a416fa9a9abdebf, type: 3}
   isDead: 0
 --- !u!1 &9094678536611959827
 GameObject:

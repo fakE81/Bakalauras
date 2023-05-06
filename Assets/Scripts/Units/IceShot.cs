@@ -45,7 +45,7 @@ public class IceShot : MonoBehaviour, IProjectile
         {
             if (collider.CompareTag("Enemy"))
             {
-                collider.GetComponent<Enemy>().TakeSlowness(slow);
+                collider.GetComponent<Enemy>().TakeSlowness(slow/100);
             }
         }
         GameObject effectInstance = Instantiate(impactEffect, transform.position, impactEffect.transform.rotation);

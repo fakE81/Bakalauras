@@ -6,6 +6,7 @@ public class PlayerTowersManager : MonoBehaviour
     [SerializeField] private UnitBlueprint[] unitBlueprints;
     [SerializeField] private BaseTowerInformation[] baseTowerInformation;
     public static PlayerTowersManager instance;
+    public int MAX_LEVEL = 20;
 
     void Start()
     {
@@ -38,9 +39,14 @@ public class PlayerTowersManager : MonoBehaviour
 
     public void LevelUp(int index)
     {
-        bool leveledUp = unitBlueprints[index].prefab.transform.GetChild(0).GetComponent<Tower>().LevelUp();
-        if(leveledUp){
-            MusicManager.instance.PlayLevelUp();
+        int currentLevel = unitBlueprints[index].prefab.transform.GetChild(0).GetComponent<Tower>().TowerInformation
+            .level;
+        if (currentLevel < MAX_LEVEL)
+        {
+            bool leveledUp = unitBlueprints[index].prefab.transform.GetChild(0).GetComponent<Tower>().LevelUp();
+            if(leveledUp){
+                MusicManager.instance.PlayLevelUp();
+            }
         }
     }
 
@@ -85,6 +91,7 @@ public class PlayerTowersManager : MonoBehaviour
         {
             BaseTowerInformation information = baseTowerInformation[index];
             TowerInformation towerInformation = new TowerInformation();
+            towerInformation.towerName = information.towerName;
             towerInformation.range = information.range;
             towerInformation.upgradeCost = information.upgradeCost;
             towerInformation.damage = information.damage;

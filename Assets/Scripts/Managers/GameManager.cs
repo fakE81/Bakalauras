@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -42,7 +43,14 @@ public class GameManager : MonoBehaviour
         if (gamestate == Gamestate.Completed)
         {
             // Show completed UI.
-            PlayerStatisticsManager.instance.BanditsHighscore = PlayerStats.Wave;
+            if (PlayerStatisticsManager.level == 1)
+            {
+                PlayerStatisticsManager.instance.BanditsHighscore = PlayerStats.Wave;   
+            }
+            else
+            {
+                PlayerStatisticsManager.instance.DesertHighscore = PlayerStats.Wave;  
+            }
             completedUI.SetActive(true);
         }
 
@@ -72,9 +80,13 @@ public class GameManager : MonoBehaviour
     private void End()
     {
         PlayerStatisticsManager.instance.addCoins(PlayerStats.EARNED_COINS);
-        if (PlayerStats.Wave > PlayerStatisticsManager.instance.BanditsHighscore)
+        if (PlayerStatisticsManager.level == 1 && PlayerStats.Wave > PlayerStatisticsManager.instance.BanditsHighscore)
         {
             PlayerStatisticsManager.instance.BanditsHighscore = PlayerStats.Wave;
+        }
+        if (PlayerStatisticsManager.level == 2 && PlayerStats.Wave > PlayerStatisticsManager.instance.DesertHighscore)
+        {
+            PlayerStatisticsManager.instance.DesertHighscore = PlayerStats.Wave;
         }
         GameIsOver = true;
         gameOverUI.SetActive(true);

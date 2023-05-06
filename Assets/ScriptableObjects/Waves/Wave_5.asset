@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: Wave_5
   m_EditorClassIdentifier: 
   enemies:
-  - enemy: {fileID: 4772276874716332262, guid: 4d4f6243c3c23814da3ba16242877c88, type: 3}
+  - enemy: {fileID: 3445117314745261486, guid: 80761dc4a0142c844a0881cda2976a68, type: 3}
     count: 1
     rateMin: 6
     rateMax: 10
-  - enemy: {fileID: 2255969911879824691, guid: 221988d2e8ac43d45868261f406004c7, type: 3}
+  - enemy: {fileID: 1819472455509407413, guid: df896c7b2d1d5884ba978c8ed23d6376, type: 3}
     count: 5
     rateMin: 0.5
     rateMax: 1
-  - enemy: {fileID: 7854241135952130595, guid: 4d290a08c99821346864b77035cd75cc, type: 3}
+  - enemy: {fileID: 8971038020056569095, guid: f4acb44d048582946b6e42b4cf897dda, type: 3}
     count: 15
     rateMin: 0.2
     rateMax: 0.3

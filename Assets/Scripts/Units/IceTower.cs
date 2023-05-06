@@ -35,4 +35,19 @@ public class IceTower : Tower
 
         Instantiate(AudioPrefab, gameObject.transform.position, Quaternion.identity);
     }
+
+    public override bool LevelUp()
+    {
+        PlayerStatisticsManager manager = PlayerStatisticsManager.instance;
+        if (manager.Coins >= towerInformation.upgradeCost)
+        {
+            towerInformation.level++;
+            manager.addCoins(-towerInformation.upgradeCost);
+            towerInformation.slow += 1;
+            towerInformation.upgradeCost+=towerInformation.level;
+            return true;
+        }
+
+        return false;
+    }
 }

@@ -12,6 +12,7 @@ public class MainMenu : MonoBehaviour
     public GameObject optionMenu;
     public Text coinsText;
     public Text banditsHighScore;
+    public Text desertHighScore;
     private PlayerStatisticsManager playerStatisticsManager;
     private PlayerTowersManager playerTowersManager;
     public TowersUpgradeUI towersUpgradeUI;
@@ -22,9 +23,10 @@ public class MainMenu : MonoBehaviour
         playerTowersManager = PlayerTowersManager.instance;
     }
 
-    public void StartBanditMap()
+    public void LoadScene(int index)
     {
-        SceneManager.LoadScene(2);
+        PlayerStatisticsManager.level = index;
+        SceneManager.LoadScene(index);
     }
 
     public void OpenOptionMenu()
@@ -50,6 +52,7 @@ public class MainMenu : MonoBehaviour
     public void OpenMapSelectMenu()
     {
         banditsHighScore.text = "Completed: " + playerStatisticsManager.BanditsHighscore+"/10"; 
+        desertHighScore.text = "Completed: " + playerStatisticsManager.DesertHighscore+"/10"; 
         mainMenu.SetActive(false);
         mapSelectMenu.SetActive(true);
     }

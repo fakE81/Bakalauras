@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerStatisticsManager : MonoBehaviour
 {
     public static PlayerStatisticsManager instance;
+    public static int level;
     private PlayerStatisticsInformation playerStatisticsInformation;
     void Start()
     {
@@ -31,6 +32,14 @@ public class PlayerStatisticsManager : MonoBehaviour
         get => playerStatisticsInformation.banditsHighscore;
         set => playerStatisticsInformation.banditsHighscore = value;
     }
+    
+    public int DesertHighscore
+    {
+        get => playerStatisticsInformation.desertHighscore;
+        set => playerStatisticsInformation.desertHighscore = value;
+    }
+    
+    
     
     public void SaveData()
     {

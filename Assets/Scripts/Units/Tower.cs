@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public abstract class Tower : MonoBehaviour
@@ -16,15 +15,15 @@ public abstract class Tower : MonoBehaviour
         InvokeRepeating("UpdateTarget", 0f, 0.25f);
     }
 
-    public bool LevelUp()
+    public virtual bool LevelUp()
     {
         PlayerStatisticsManager manager = PlayerStatisticsManager.instance;
         if (manager.Coins >= towerInformation.upgradeCost)
         {
             towerInformation.level++;
             manager.addCoins(-towerInformation.upgradeCost);
-            towerInformation.damage += 5f;
-            towerInformation.upgradeCost++;
+            towerInformation.damage += 2f;
+            towerInformation.upgradeCost+=towerInformation.level;
             return true;
         }
 
@@ -44,11 +43,14 @@ public abstract class Tower : MonoBehaviour
         GameObject nearestEnemy = null;
         foreach (GameObject enemy in enemies)
         {
-            float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
-            if (shortestDistance > distanceToEnemy)
+            if (!enemy.GetComponent<Enemy>().isDead)
             {
-                shortestDistance = distanceToEnemy;
-                nearestEnemy = enemy;
+                float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+                if (shortestDistance > distanceToEnemy)
+                {
+                    shortestDistance = distanceToEnemy;
+                    nearestEnemy = enemy;
+                }
             }
         }
 

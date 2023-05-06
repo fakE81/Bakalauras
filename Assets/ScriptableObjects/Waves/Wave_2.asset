@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Wave_2
   m_EditorClassIdentifier: 
   enemies:
-  - enemy: {fileID: 7854241135952130595, guid: 4d290a08c99821346864b77035cd75cc, type: 3}
+  - enemy: {fileID: 8971038020056569095, guid: f4acb44d048582946b6e42b4cf897dda, type: 3}
     count: 12
     rateMin: 0.2
     rateMax: 0.8

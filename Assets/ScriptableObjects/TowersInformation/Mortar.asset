@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cb0090f0a19e3643947b07d021bcba7, type: 3}
   m_Name: Mortar
   m_EditorClassIdentifier: 
+  towerName: Mortar
   range: 12
   fireRate: 0.2
-  damage: 40
+  damage: 12
   turnSpeed: 3
   level: 1
   upgradeCost: 1

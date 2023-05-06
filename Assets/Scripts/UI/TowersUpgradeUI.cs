@@ -20,7 +20,7 @@ public class TowersUpgradeUI : MonoBehaviour
         informationText.level.text = "Level:" + towerInformation.level;
         if (towerInformation.towerName == "Ice")
         {
-            informationText.damage.text = "Slow:" + towerInformation.slow * 100 + "%";
+            informationText.damage.text = "Slow:" + towerInformation.slow + "%";
         }
         else
         {
