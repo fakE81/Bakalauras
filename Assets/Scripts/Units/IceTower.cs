@@ -43,7 +43,7 @@ public class IceTower : Tower
         {
             towerInformation.level++;
             manager.addCoins(-towerInformation.upgradeCost);
-            towerInformation.slow += 1;
+            towerInformation.slow += 2;
             towerInformation.upgradeCost+=towerInformation.level;
             return true;
         }

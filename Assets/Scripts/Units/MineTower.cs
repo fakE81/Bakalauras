@@ -40,7 +40,7 @@ public class MineTower : Tower
         {
             towerInformation.level++;
             manager.addCoins(-towerInformation.upgradeCost);
-            towerInformation.damage += 5f;
+            towerInformation.damage += 20f;
             towerInformation.upgradeCost+=towerInformation.level;
             return true;
         }

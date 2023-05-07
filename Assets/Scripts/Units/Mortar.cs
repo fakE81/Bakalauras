@@ -31,7 +31,7 @@ public class Mortar : Tower
         {
             towerInformation.level++;
             manager.addCoins(-towerInformation.upgradeCost);
-            towerInformation.damage += 1f;
+            towerInformation.damage += 4f;
             towerInformation.upgradeCost+=towerInformation.level;
             return true;
         }

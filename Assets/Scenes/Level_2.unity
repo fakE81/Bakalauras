@@ -20973,8 +20973,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aabcce8d550a784e9638b2e60660dad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startMoney: 500
-  startCastleHealth: 10
+  startMoney: 750
+  startCastleHealth: 1
 --- !u!114 &1384160282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21041,16 +21041,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wave:
-  - {fileID: 11400000, guid: 8e761ae696830f24d92b765499fb1ebb, type: 2}
-  - {fileID: 11400000, guid: 3f99eb8c00357344ea7e5eff0afae495, type: 2}
-  - {fileID: 11400000, guid: 31d05458e7c8ee949b6bc0a3b43a78bf, type: 2}
-  - {fileID: 11400000, guid: 5ade1a50cce9bff4b814b5f248ec8be7, type: 2}
-  - {fileID: 11400000, guid: cc70f16005fc7cd46b92e164c6df896c, type: 2}
-  - {fileID: 11400000, guid: 2ddce54e0e48de3479393f7b33c43f40, type: 2}
-  - {fileID: 11400000, guid: 28df0a5fe6ec49f489ed4842e07e6eb0, type: 2}
-  - {fileID: 11400000, guid: d1c13523de11b1042a388c8c475d7d45, type: 2}
-  - {fileID: 11400000, guid: 063dc6fdc3939ea4cb60f77918b61a3a, type: 2}
-  - {fileID: 11400000, guid: 474242fbf390f754c82810c12ce57b40, type: 2}
+  - {fileID: 11400000, guid: f9376afa15edf9b4ca0c5ef20ee4d697, type: 2}
+  - {fileID: 11400000, guid: 46ae19b7f44c1b949b6b875c7debb9a9, type: 2}
+  - {fileID: 11400000, guid: 821189fd6188d1049b476cafe22befbd, type: 2}
+  - {fileID: 11400000, guid: 75aa64c47e633824e874bc8630b6905a, type: 2}
+  - {fileID: 11400000, guid: a564d750ce130414ab95659805f6759f, type: 2}
+  - {fileID: 11400000, guid: 61f26afb5f1b5a446bab696a0a5e4d2a, type: 2}
+  - {fileID: 11400000, guid: b2b6a391e9ed49747ab637c04a85f69a, type: 2}
+  - {fileID: 11400000, guid: 814c5310090afeb47a82aaf055f6881d, type: 2}
+  - {fileID: 11400000, guid: 7675b025846586143b4c21a6e8e42959, type: 2}
+  - {fileID: 11400000, guid: 515833c94d9f23e4d836f0ccf80f5531, type: 2}
   enemyPrefab: {fileID: 4818260222948283699, guid: 67a4ab6c1e8c1a649962ddf9f32c89eb, type: 3}
   spawnPoint: {x: 0, y: 0, z: 0}
   turnOffEnemies: 0

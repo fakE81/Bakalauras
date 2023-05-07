@@ -22,7 +22,7 @@ public abstract class Tower : MonoBehaviour
         {
             towerInformation.level++;
             manager.addCoins(-towerInformation.upgradeCost);
-            towerInformation.damage += 2f;
+            towerInformation.damage += 12f;
             towerInformation.upgradeCost+=towerInformation.level;
             return true;
         }

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -26,6 +25,7 @@ public class MainMenu : MonoBehaviour
     public void LoadScene(int index)
     {
         PlayerStatisticsManager.level = index;
+        PlayerTowersManager.instance.ChangeBlueprintBasicPrice();
         SceneManager.LoadScene(index);
     }
 
