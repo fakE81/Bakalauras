@@ -1,8 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 using Random = UnityEngine.Random;
 
 public class GridManagerDEMO : MonoBehaviour
@@ -31,20 +34,78 @@ public class GridManagerDEMO : MonoBehaviour
 
     private bool unlockNextTile;
 
+    [Space] public int gridSize = 5;
+    public Vector2Int startPoint;
+    public Vector2Int endpoint = new Vector2Int(4, 4);
+
+    public int times = 5;
+
     // Start is called before the first frame update
     void Start()
     {
         unlockNextTile = false;
-        StartCoroutine(CreateMultipleDEMO());
+        // StartCoroutine(CreateMultipleDEMO());
+        TestSearchAlgorithms();
+    }
+
+
+    public void TestSearchAlgorithms()
+    {
+        double elapsedSecondsDijkstra = 0;
+        double elapsedSecondsA = 0;
+        for (int i = 0; i < times; i++)
+        {
+            List<Vector2Int> pathCells;
+            //Generate Grid using old generator:
+            PathGenerator pathGenerator = new PathGenerator(gridSize, gridSize);
+            List<Vector2Int> generatedPath =
+                pathGenerator.GeneratePath(startPoint, endpoint, new Vector2Int(0, 0));
+            while (generatedPath == null || generatedPath.Count < minPathLength)
+            {
+                generatedPath = pathGenerator.GeneratePath(startPoint, endpoint, new Vector2Int(0, 0));
+            }
+
+            int[,] dijkstraGrid = ConvertToDijkstraGrid(pathGenerator.grid);
+            PathGeneratorDijkstra dijkstra = new PathGeneratorDijkstra(gridSize);
+            PathGeneratorA pathGeneratorA = new PathGeneratorA(dijkstraGrid);
+            //---- Try testing A*--------//
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            pathCells = pathGeneratorA.GeneratePathNew(startPoint, endpoint);
+
+            stopwatch.Stop();
+            // Debug.Log("Path length: " + pathCells.Count);
+            elapsedSecondsA += (double)stopwatch.ElapsedTicks / Stopwatch.Frequency * 1000;
+            //----- Try testing Dijkstra //
+            dijkstra = new PathGeneratorDijkstra(gridSize);
+            Stopwatch dijkstraStopwatch = new Stopwatch();
+            dijkstraStopwatch.Start();
+
+            pathCells = dijkstra.ComputeShortestDistances(startPoint, endpoint, dijkstraGrid);
+
+            dijkstraStopwatch.Stop();
+            elapsedSecondsDijkstra += (double)dijkstraStopwatch.ElapsedTicks / Stopwatch.Frequency * 1000;
+            // PrintPath(pathCells);
+            // PrintPath(pathCells);
+            //-------------------------/
+            // Debug.Log("Progress " + i +"/"+times);
+            Debug.ClearDeveloperConsole();
+        }
+        Debug.Log("Generated: " + times);
+        Debug.Log($"Dijkstra algorithm execution time: {elapsedSecondsDijkstra/times} ms");
+        Debug.Log("Dijkstra Average Nodes Checked: " + PathGeneratorDijkstra.nodesChecked/times);
+        Debug.Log($"A* algorithm execution time: {elapsedSecondsA/times} ms");
+        Debug.Log("A* Average Nodes Checked: " + PathGeneratorA.nodesChecked/times);
     }
 
     private void Update()
     {
-        if (unlockNextTile && !isDemo)
-        {
-            ShowUnlockButton();
-            unlockNextTile = false;
-        }
+        // if (unlockNextTile && !isDemo)
+        // {
+        //     ShowUnlockButton();
+        //     unlockNextTile = false;
+        // }
     }
 
     private IEnumerator CreateMultipleDEMO()
@@ -80,6 +141,50 @@ public class GridManagerDEMO : MonoBehaviour
         }
 
         unlockNextTile = true;
+    }
+
+    bool[,] ConvertGrid(int[,] grid)
+    {
+        bool[,] newGrid = new bool[gridSize, gridSize];
+        for (int row = 0; row < gridSize; row++)
+        {
+            for (int col = 0; col < gridSize; col++)
+            {
+                // Assign random values to grid cells
+                if (grid[row, col] == -1) // Adjust the probability (e.g., 0.2 for 20% chance)
+                {
+                    newGrid[row, col] = false;
+                }
+                else
+                {
+                    newGrid[row, col] = true;
+                }
+            }
+        }
+
+        return newGrid;
+    }
+
+    int[,] ConvertToDijkstraGrid(int[,] grid)
+    {
+        int[,] newGrid = new int[gridSize, gridSize];
+        for (int row = 0; row < gridSize; row++)
+        {
+            for (int col = 0; col < gridSize; col++)
+            {
+                // Assign random values to grid cells
+                if (grid[row, col] == 1) // Adjust the probability (e.g., 0.2 for 20% chance)
+                {
+                    newGrid[row, col] = -1;
+                }
+                else
+                {
+                    newGrid[row, col] = 1;
+                }
+            }
+        }
+
+        return newGrid;
     }
 
     private IEnumerator CreateGrid(List<Vector2Int> pathCells, Vector2Int sceneryLayOffset)
@@ -133,6 +238,21 @@ public class GridManagerDEMO : MonoBehaviour
         }
 
         yield return null;
+    }
+
+    public void PrintPath(List<Vector2Int> path)
+    {
+        StringBuilder sb = new StringBuilder();
+
+        sb.AppendLine("Shortest Path:");
+        sb.AppendLine("-------------");
+
+        foreach (Vector2Int point in path)
+        {
+            sb.AppendLine($"({point.x}, {point.y})");
+        }
+
+        Debug.Log(sb.ToString());
     }
 
     private TileType DetermineNextTileType(TileType type)
@@ -244,12 +364,11 @@ public class GridManagerDEMO : MonoBehaviour
         if (tileContainerList.Count != 0)
         {
             tileContainerList.Last().transform.GetChild(1).gameObject.SetActive(true);
-            tileContainerList.RemoveLast();   
+            tileContainerList.RemoveLast();
         }
         else
         {
             Debug.Log("Tile container is empty!");
         }
     }
-    
 }

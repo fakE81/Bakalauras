@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 public class PathGenerator
 {
     public enum Direction {Up, Left, Right, UpLeft, UpRight, LeftUp, RightUp};
-    private int[,] grid = new int[9, 9] {
+    public int[,] grid = new int[9, 9] {
         { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -30,43 +30,6 @@ public class PathGenerator
         pathCells = new List<Vector2Int>();
     }
 
-    public List<Vector2Int> GeneratePath(int startPosition)
-    {
-        pathCells = new List<Vector2Int>();
-
-        int y = (int)(height / 2);
-        int x = startPosition;
-        
-        while (x < width)
-        {
-            pathCells.Add(new Vector2Int(x, y));
-
-            bool validMove = false;
-            while (!validMove)
-            {
-                int move = Random.Range(0, 3);
-                if (move == 0 || x % 2 == 0 || x > (width - 2))
-                {
-                    x++;
-                    validMove = true;
-                }
-                else if (move == 1 && CellIsFree(x,y + 1) && y < (height - 2))
-                {
-                    y++;
-                    validMove = true;
-                }
-                else if (move == 2 && CellIsFree(x,y - 1) && y > 2)
-                {
-                    y--;
-                    validMove = true;
-                }
-            }
-        }
-        
-        
-        return pathCells;
-    }
-
     public List<Vector2Int> GeneratePath(Vector2Int start, Vector2Int end, Vector2Int offset)
     {
         // Convert to grid coordinates:
@@ -74,63 +37,44 @@ public class PathGenerator
         end = ConvertToGridCoordinates(end);
 
         InitializeGrid();
-        // Create lists for open and closed nodes
+
         List<Vector2Int> openNodes = new List<Vector2Int>();
         List<Vector2Int> closedNodes = new List<Vector2Int>();
-
-        // Add start node to open list
+        
         openNodes.Add(start);
-
-        // Create dictionary for storing parent nodes
         Dictionary<Vector2Int, Vector2Int> parentNodes = new Dictionary<Vector2Int, Vector2Int>();
-
-        // Create dictionary for storing g scores (cost to move from start to current node)
+        
         Dictionary<Vector2Int, int> gScores = new Dictionary<Vector2Int, int>();
         gScores[start] = 0;
-
-        // Create dictionary for storing f scores (estimated total cost to move from start to end via current node)
+        
         Dictionary<Vector2Int, int> fScores = new Dictionary<Vector2Int, int>();
         fScores[start] = Heuristic(start, end);
-
-        // Loop until open list is empty
+        
         while (openNodes.Count > 0) {
-            // Get node with lowest f score
             Vector2Int current = openNodes[0];
             for (int i = 1; i < openNodes.Count; i++) {
                 if (fScores.ContainsKey(openNodes[i]) && fScores[openNodes[i]] < fScores[current]) {
                     current = openNodes[i];
                 }
             }
-
-            // Check if current node is the end node
+            
             if (current == end) {
                 return ReconstructPath(parentNodes, current, offset);
             }
-
-            // Remove current node from open list and add it to closed list
+            
             openNodes.Remove(current);
             closedNodes.Add(current);
             foreach (Vector2Int neighbor in GetNeighbors(current)) {
-                // Check if neighbor is already in closed list
                 if (closedNodes.Contains(neighbor)) {
                     continue;
                 }
-
-                // Calculate tentative g score for neighbor
+                
                 int tentativeGScore = gScores[current] + 1;
-
-                // Check if neighbor is not in open list or if tentative g score is lower than existing g score for neighbor
+                
                 if (!openNodes.Contains(neighbor) || tentativeGScore < gScores[neighbor]) {
-                    // Set parent node for neighbor
                     parentNodes[neighbor] = current;
-
-                    // Set g score for neighbor
                     gScores[neighbor] = tentativeGScore;
-
-                    // Set f score for neighbor
                     fScores[neighbor] = tentativeGScore + Heuristic(neighbor, end);
-
-                    // Add neighbor to open list
                     if (!openNodes.Contains(neighbor)) {
                         openNodes.Add(neighbor);
                     }
@@ -190,7 +134,6 @@ public class PathGenerator
     }
     
     int Heuristic(Vector2Int current, Vector2Int end) {
-        // Manhattan distance heuristic
         return Mathf.Abs(current.x - end.x) + Mathf.Abs(current.y - end.y);
     }
 
@@ -212,14 +155,6 @@ public class PathGenerator
             neighbors.Add(new Vector2Int(current.x, current.y + 1));
         }
 
-        // Shuffle list of neighbors
-        for (int i = 0; i < neighbors.Count; i++) {
-            int randomIndex = Random.Range(i, neighbors.Count);
-            Vector2Int temp = neighbors[i];
-            neighbors[i] = neighbors[randomIndex];
-            neighbors[randomIndex] = temp;
-        }
-
         return neighbors;
     }
 
@@ -239,9 +174,9 @@ public class PathGenerator
     }
     
     void InitializeGrid() {
-        grid = new int[9, 9];
-        int numObstacles = (int)(grid.Length * 0.7f); 
-
+        grid = new int[width, width];
+        int numObstacles = (int)(grid.Length * 0.25f); 
+        // int numObstacles = 0;
         // Randomly set obstacles in grid
         for (int i = 0; i < numObstacles; i++) {
             int x = Random.Range(0, grid.GetLength(0));

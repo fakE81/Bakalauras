@@ -337,8 +337,8 @@ MonoBehaviour:
   isDemo: 0
   gridWidth: 9
   gridHeight: 9
-  minPathLength: 15
-  blocksSize: 10
+  minPathLength: 1
+  blocksSize: 5
   pathDirectionRestriction: 3
   startPos: {x: 94, y: 0}
   endPos: {x: 94, y: 8}
@@ -376,6 +376,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 76a23574372736c40872805c0d74d222, type: 2}
   - {fileID: 11400000, guid: b1fe6d33bdf5bee4cbe61c5fa45e6b7e, type: 2}
   tileContainer: {fileID: 8360969502044467395, guid: 23371d0304885c742ad421367e07cc4d, type: 3}
+  gridSize: 5
+  startPoint: {x: 2, y: 0}
+  endpoint: {x: 4, y: 2}
+  times: 100
 --- !u!4 &603651990
 Transform:
   m_ObjectHideFlags: 0
