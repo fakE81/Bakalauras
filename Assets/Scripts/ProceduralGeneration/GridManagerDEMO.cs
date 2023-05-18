@@ -92,11 +92,12 @@ public class GridManagerDEMO : MonoBehaviour
             // Debug.Log("Progress " + i +"/"+times);
             Debug.ClearDeveloperConsole();
         }
+
         Debug.Log("Generated: " + times);
-        Debug.Log($"Dijkstra algorithm execution time: {elapsedSecondsDijkstra/times} ms");
-        Debug.Log("Dijkstra Average Nodes Checked: " + PathGeneratorDijkstra.nodesChecked/times);
-        Debug.Log($"A* algorithm execution time: {elapsedSecondsA/times} ms");
-        Debug.Log("A* Average Nodes Checked: " + PathGeneratorA.nodesChecked/times);
+        Debug.Log($"Dijkstra algorithm execution time: {elapsedSecondsDijkstra / times} ms");
+        Debug.Log("Dijkstra Average Nodes Checked: " + PathGeneratorDijkstra.nodesChecked / times);
+        Debug.Log($"A* algorithm execution time: {elapsedSecondsA / times} ms");
+        Debug.Log("A* Average Nodes Checked: " + PathGeneratorA.nodesChecked / times);
     }
 
     private void Update()

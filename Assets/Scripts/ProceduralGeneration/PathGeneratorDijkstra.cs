@@ -1,13 +1,9 @@
-
-
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = System.Random;
 
 public class PathGeneratorDijkstra
 {
-    
     private const int Infinity = int.MaxValue;
 
     public int[,] grid;
@@ -17,7 +13,8 @@ public class PathGeneratorDijkstra
 
     public static int nodesChecked = 0;
 
-    private Vector2Int[] delta = {
+    private Vector2Int[] delta =
+    {
         new Vector2Int(-1, 0), // Up
         new Vector2Int(0, 1), // Right
         new Vector2Int(1, 0), // Down
@@ -39,13 +36,14 @@ public class PathGeneratorDijkstra
         this.grid = grid;
         return ComputeShortestDistances(start, end, false);
     }
-    
+
     public List<Vector2Int> ComputeShortestDistances(Vector2Int start, Vector2Int end, bool generateGrid)
     {
         if (generateGrid)
         {
             grid = GenerateGrid(size, size);
         }
+
         rows = grid.GetLength(0);
         columns = grid.GetLength(1);
         shortestDistances = new int[rows, columns];
